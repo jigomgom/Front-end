@@ -1,0 +1,355 @@
+.App {
+  text-align: center;
+}
+
+
+
+/* root*/
+
+:root {
+  --primary-color: #d4befe;
+  --line-color: #b8b7b7;
+  --highlight-color: #b28afd;
+  --background-color: #f5f3f3;
+  --cardline: 1px solid #cac9c9;
+  --delete-color: #ff2626;
+
+  --container-width: 900px;
+  --navbar-width: 880px;
+}
+
+.primary-color{
+  color: var(--primary-color);
+}
+
+.boldtext{
+  font-weight: 600;
+  font-style: italic;
+}
+
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+}
+
+.background {
+  background-color: var(--background-color);
+  min-height: 100vh;
+  overflow: hidden;
+  width:100vw;
+}
+
+input[type="text"],
+input[type="password"] {
+  display: block;
+  width: 100%;
+  border: none;
+  outline: none;
+  height: 33px;
+  margin: 10px auto;
+  background-color: transparent;
+  border-bottom: var(--cardline);
+  font-size: 1rem;
+  cursor: auto;
+}
+
+input::placeholder {
+  font-size: 0.9rem;
+  text-align: center;
+  color: var(--primary-color);
+}
+input[type="radio"] {
+  margin: 15px auto;
+}
+
+textarea{
+  display: block;
+  width: 90%;
+  outline: none;
+  border: none;
+  margin: 15px auto;
+  height: 20vh;
+  font-size: 1rem;
+  padding: 1rem;
+}
+
+.flexrow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.flexcol {
+  display: flex;
+  flex-direction: column;
+}
+
+/* google maeterial symbols */
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+    url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+    url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 30px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  padding: 3px;
+  cursor: pointer;
+  color: grey;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+
+
+/* App.js */
+
+/* Navbar 상단메뉴 */
+.navbar {
+  height: 50px;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  z-index: 100;
+  position: sticky;
+  display: flex;
+  align-items: center;
+  flex-direction:column;
+  backdrop-filter: blur(20px);
+  font-size: 1.6rem;
+  font-weight: bold;
+  padding-top: 5px;
+  padding-bottom: 15px;
+}
+
+.head {
+  padding-left: 1.5rem;
+  cursor: pointer;
+}
+
+.linkwrap {
+  display: flex;
+  margin-right: 0.5rem;
+}
+
+.navbar-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content:space-between;
+  
+  max-width: var(--navbar-width);
+  max-height: 50px;
+  width:100%;
+  margin: 0
+}
+
+.link {
+  margin-right: 1rem;
+  align-items: center;
+  cursor: pointer;
+}
+
+.head:hover{
+  color: grey;
+}
+.link:hover {
+  background-color: grey;
+  color: white;
+  font-style: italic;
+}
+
+
+
+/* Feed 메인피드 */
+
+.card_head_wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 70px;
+  justify-content:space-between;
+  overflow: hidden;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.inflex {
+  display: flex;
+  align-items: center;
+  
+}
+
+.card_txt{
+  padding: 20px;
+  align-self: center;
+}
+.card_img_wrapper{
+ height: 400px;
+ margin: 10px;
+ max-width: 95%;
+ object-fit: cover;
+ overflow: hidden;
+}
+
+.card_img_wrapper2{
+  max-height: 400px;
+  margin: 10px;
+  width: 98%;
+  object-fit: cover;
+  overflow: hidden;
+  margin: 10px auto;
+ }
+
+.cardimg {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+
+/* Join / login */
+
+.containersm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 350px;
+  margin: 50px auto;
+  align-items: center;
+}
+
+.form_wrapper {
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 40px;
+}
+
+.file {
+  border-bottom: none !important;
+  font-size:0.9rem !important;
+  margin-top: 10px !important;
+  margin-bottom: 20px !important;
+  margin-left: 15% !important;
+}
+
+/* Upload 사진올리기 */
+
+.form_wrapper2 {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 40px;
+}
+
+.showimg {
+  display: block;
+  width: 98%;
+  max-height: 200px;
+  object-fit: cover;
+  margin:0 auto 20px auto; 
+}
+
+.previewtxt{
+  position: relative;
+  max-width: 100%;
+}
+
+.imgtxt {
+  position: absolute;
+  top: 50%;
+  left: 43%;
+  color: var(--line-color);
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.topmg20 {
+  margin-top:20px;
+}
+
+.topmg50 {
+  margin-top:50px;
+}
+
+.topmg100 {
+  margin-top:100px;
+}
+
+.leftmg5 {
+  margin-left:5px;
+}
+
+
+
+/* Replace 수정하기 */
+
+
+/*element */
+.btn {
+  cursor: pointer;
+  outline:none;
+  border: none;
+  background-color: transparent;
+  border: 2px solid var(--line-color);
+  border-radius: 20px;
+}
+
+.addbtn {
+  right: 80px !important;
+  text-align: center;
+  align-items: center;
+}
+
+.md-btn {
+  width: 60px;
+  height: 30px;
+  padding: 5px 5px 0px 5px;
+
+}
+
+.lg-btn {
+  width: 100%;
+  height: 30px;
+  padding: 8px 5px 2px 5px;
+  margin-bottom: 15px;
+}
+.btn:hover{
+  border: 2px solid var(--primary-color);
+  transform: scale(0.99);
+}
+
+
+.mgright1 {
+  margin-right: 1rem;
+}
+
+.mgleft1 {
+  margin-left: 1rem;
+}
