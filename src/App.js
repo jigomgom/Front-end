@@ -2,8 +2,7 @@ import './styles/App.css';
 import styled from 'styled-components';
 import React from 'react';
 
-import {Routes, Route} from "react-router-dom";
-import {useNavigate} from "react-router-dom";
+import {Routes, Route, useNavigate} from "react-router-dom";
 import Nav from './components/Nav';
 import Feed from './pages/Feed';
 import Login from './pages/Login';

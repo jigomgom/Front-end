@@ -14,8 +14,13 @@
   --cardline: 1px solid #cac9c9;
   --delete-color: #ff2626;
 
-  --container-width: 900px;
+  --container-width: 1300px;
   --navbar-width: 880px;
+  /* JY : add color value*/
+  --feed-background-color: rgb(246, 242, 242);
+  --login-button-color : #c0bdbd;
+  --waring-color: #ff2626;
+  --font-size-small: 0.9rem;
 }
 
 .primary-color{
@@ -27,16 +32,20 @@
   font-style: italic;
 }
 
+
 .container {
   max-width: var(--container-width);
+  height: 100%;
   margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .background {
   background-color: var(--background-color);
   min-height: 100vh;
   overflow: hidden;
-  width:100vw;
+  width:100%;
 }
 
 input[type="text"],
@@ -52,6 +61,7 @@ input[type="password"] {
   font-size: 1rem;
   cursor: auto;
 }
+
 
 input::placeholder {
   font-size: 0.9rem;
@@ -132,7 +142,8 @@ textarea{
 
 /* Navbar 상단메뉴 */
 .navbar {
-  height: 50px;
+  /* JY : Navar Height 50->70px */
+  height: 70px;
   width: 100%;
   top: 0px;
   left: 0px;
@@ -146,6 +157,8 @@ textarea{
   font-weight: bold;
   padding-top: 5px;
   padding-bottom: 15px;
+  /* JY : Navar item center */
+  justify-content: center;
 }
 
 .head {
@@ -188,31 +201,128 @@ textarea{
 
 
 /* Feed 메인피드 */
+/* JY : Feed wrap 추가 */
+.feed-wrap{
+  width: 30%;
+  min-width: 350px;
+  height: 50vh;
+  min-height: 450px;
+  border : 2px solid rgba(7, 5, 5, 0.14);
+  border-radius: 10px;
+  background-color: var(--feed-background-color);
+  margin-top: 15px;
+  margin-right: 17px;
+}
 
 .card_head_wrapper {
   display: flex;
   align-items: center;
   flex-direction: row;
-  height: 70px;
+  height: 50px;
   justify-content:space-between;
   overflow: hidden;
   padding-left: 1rem;
   padding-right: 1rem;
+  margin-top : 10px;
 }
 
 .inflex {
   display: flex;
   align-items: center;
-  
+}
+/* JY : Feed header css */
+
+.headflex{
+  display: flex;
+  align-items: center;
 }
 
+.headflex > div{
+  margin-right: 10px;
+}
+.card_edit{
+  font-size: 1.5rem;
+  margin-right: -5px;
+}
+
+.card_delete{
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+
+.card_place{
+  display: flex;
+  margin-left:70px;
+}
+
+.card_address{
+  font-size: 0.9rem;
+}
+
+.card_body_header{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content:space-between;
+  overflow: hidden;
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
+.card_body_wrap{
+  display: flex;
+  flex-direction: column;
+  height: 15px;
+}
+
+.card_body_header_stars > .stars{
+  font-size: 1.4rem;
+}
+.card_body_heart{
+  font-size: 1.2rem;
+}
+
+.card_body_title{
+  display: flex;
+  align-items: center;
+  width: 200px;
+  margin-left: 20px;
+  margin-bottom: 5px;
+  font-size: 1rem;
+}
+.card_body_place{
+  margin-right: 10px;
+}
+
+.card_body_header_class{
+  font-size: 0.8rem;
+}
+
+.card_bottom_wrap{
+  display: flex;
+  flex-direction: column;
+  margin-left: -20px;
+  height: 15px;
+}
+
+.card_body_address{
+  margin-bottom: 5px;
+}
+
+.card_body_content{
+  display: flex;
+  margin-left: 48px;
+}
+
+/* JY: Feed end */
 .card_txt{
   padding: 20px;
   align-self: center;
 }
+
 .card_img_wrapper{
- height: 400px;
- margin: 10px;
+ height: 270px;
+ margin: 5px;
  max-width: 95%;
  object-fit: cover;
  overflow: hidden;
@@ -259,6 +369,113 @@ textarea{
   margin-bottom: 20px !important;
   margin-left: 15% !important;
 }
+
+/* JY : Join Id form create */
+.id_form{
+  display: flex;
+}
+
+.id_error{
+  color: var(--waring-color);
+  font-size: var(--font-size-small);
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+.password_error{
+  color: var(--waring-color);
+  font-size: var(--font-size-small);
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+.id_form > input {
+  text-align: right;
+}
+
+.id_button{
+  cursor: pointer;
+  outline:none;
+  border: none;
+  background-color: transparent;
+  border: 2px solid var(--line-color);
+  width: 90px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+
+  font-weight: 600;
+  font-style: italic;
+}
+
+.id_button:hover{
+  border: 2px solid var(--primary-color);
+  transform: scale(0.99);
+}
+
+/* JY : Join Id form end */
+
+/* JY : User icon input file coustomize */
+.filebox{
+  display: flex;
+  margin: 20px 0px;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload_icon{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: none;
+}
+
+.filebox .upload-name {
+  display: inline-block;
+  height: 40px;
+  padding: 0 10px;
+  vertical-align: middle;
+  border: 2px solid #dddddd;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  width: 78%;
+  color: #999999;
+}
+
+.filebox label {
+  display: inline-block;
+  padding: 10px 20px;
+  
+  vertical-align: middle;
+  background-color: transparent;
+  border-radius: 20px;
+  cursor: pointer;
+  height: 20px;
+  margin-left: 10px;
+  border: 2px solid var(--line-color);
+
+  font-weight: 600;
+  font-style: italic;
+}
+
+.filebox label:hover{
+  border: 2px solid var(--primary-color);
+  transform: scale(0.99);
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+/* JY: Input file type customize end */
 
 /* Upload 사진올리기 */
 
