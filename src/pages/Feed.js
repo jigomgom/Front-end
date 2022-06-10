@@ -3,7 +3,7 @@ import React from "react";
 const Feed = () => {
 
   return (
-    
+    null
   //   <div className="container">
   //   {all_posts.map((post, idx) => {
   //       return(

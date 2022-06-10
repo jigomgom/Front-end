@@ -1,33 +1,31 @@
-import './App.css';
+import './styles/App.css';
 import styled from 'styled-components';
 import React from 'react';
 
 import {Routes, Route} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
-import Navbar from './Navbar';
-import Feed from './Feed';
-import Login from './Login';
-import Signup from './Signup';
-import Upload from './Upload';
-import Edit from './Edit';
+import Nav from './components/Nav';
+import Feed from './pages/Feed';
+import Login from './pages/Login';
+import Signup from './pages/SignUp';
+import Upload from './pages/Upload';
+import Edit from './pages/Edit';
 
 import {useDispatch} from "react-redux";
-import {loadFeedFB} from "./redux/modules/feedSlice"
-
 
 function App() {
 
   const dispatch= useDispatch();
 
   React.useEffect(() => {
-    dispatch(loadFeedFB())
+    
   },[]);
 
   const navigate = useNavigate();
 
   return (
     <div className="App">
-      <Navbar/>
+      <Nav/>
       <div className="background">
         <Routes>
           <Route path="/" element={<Feed/>}></Route>
