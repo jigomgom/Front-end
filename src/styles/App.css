@@ -7,17 +7,18 @@
 /* root*/
 
 :root {
-  --primary-color: #d4befe;
-  --line-color: #b8b7b7;
-  --highlight-color: #b28afd;
-  --background-color: #f5f3f3;
+  --primary-color: #ff9100;
+  --line-color:#ff8223;
+  --highlight-color: #ff7011;
+  --background-color: #f8f4f1;
   --cardline: 1px solid #cac9c9;
   --delete-color: #ff2626;
+  --lighter-color: #fee9cd;
 
-  --container-width: 1300px;
-  --navbar-width: 880px;
+  --container-width: 1200px;
+  --navbar-width: 1100px;
   /* JY : add color value*/
-  --feed-background-color: rgb(246, 242, 242);
+  --feed-background-color: rgb(255, 255, 255);
   --login-button-color : #c0bdbd;
   --waring-color: #ff2626;
   --font-size-small: 0.9rem;
@@ -31,7 +32,7 @@
 
 .boldtext{
   font-weight: 600;
-  font-style: italic;
+  margin-bottom: 0.5rem;
 }
 
 
@@ -43,6 +44,7 @@
   flex-wrap: wrap;
   /* JY: Footer와 마진 주기 */
   margin-bottom: 20px;
+  justify-content: space-around;
 }
 
 .background {
@@ -60,10 +62,11 @@ input[type="password"] {
   outline: none;
   height: 33px;
   margin: 10px auto;
-  background-color: transparent;
-  border-bottom: var(--cardline);
+  background-color: white;
   font-size: 1rem;
   cursor: auto;
+  margin-bottom: 1rem;
+  padding: 0.3rem 1rem;
 }
 
 
@@ -82,7 +85,7 @@ textarea{
   outline: none;
   border: none;
   margin: 15px auto;
-  height: 20vh;
+  height: 10vh;
   font-size: 1rem;
   padding: 1rem;
 }
@@ -140,6 +143,9 @@ textarea{
   font-feature-settings: 'liga';
 }
 
+.material-icons:hover {
+  color: var(--primary-color);
+}
 
 
 /* App.js */
@@ -166,7 +172,7 @@ textarea{
 }
 
 .head {
-  padding-left: 1.5rem;
+  padding-left: 0.5rem;
   cursor: pointer;
 }
 
@@ -202,9 +208,6 @@ textarea{
   font-style: italic;
 }
 
-
-
-
 .card_txt{
   padding: 20px;
   align-self: center;
@@ -212,8 +215,8 @@ textarea{
 
 .card_img_wrapper{
  height: 270px;
- margin: 5px;
- max-width: 95%;
+ margin: 0px;
+ max-width: 100%;
  object-fit: cover;
  overflow: hidden;
 }
@@ -253,11 +256,7 @@ textarea{
 }
 
 .file {
-  border-bottom: none !important;
-  font-size:0.9rem !important;
-  margin-top: 10px !important;
-  margin-bottom: 20px !important;
-  margin-left: 15% !important;
+  display: none !important;
 }
 
 
@@ -268,6 +267,7 @@ textarea{
   width: 100%;
   margin-top: 0;
   margin-bottom: 40px;
+  text-align: center;
 }
 
 .showimg {
@@ -306,6 +306,10 @@ textarea{
 
 .leftmg5 {
   margin-left:5px;
+}
+
+.color-primary{
+  color:var(--primary-color);
 }
 
 
@@ -356,6 +360,11 @@ textarea{
   margin-left: 1rem;
 }
 
+.mg40 {
+  margin-top: 40px;
+  margin-bottom:40px;
+}
+
 
 /* JY CSS Start*/
 /* Feed 메인피드 */
@@ -368,8 +377,9 @@ textarea{
   border : 2px solid rgba(7, 5, 5, 0.14);
   border-radius: 10px;
   background-color: var(--feed-background-color);
-  margin-top: 15px;
+  margin-top: 20px;
   margin-right: 17px;
+  padding-bottom: 15px;
 }
 
 .card_head_wrapper {
@@ -381,7 +391,8 @@ textarea{
   overflow: hidden;
   padding-left: 1rem;
   padding-right: 1rem;
-  margin-top : 10px;
+  margin-top : 5px;
+  margin-bottom: 7px;
 }
 
 .inflex {
@@ -395,9 +406,7 @@ textarea{
   align-items: center;
 }
 
-.headflex > div{
-  margin-right: 10px;
-}
+
 .card_edit{
   font-size: 1.5rem;
   margin-right: -5px;
@@ -405,7 +414,7 @@ textarea{
 
 .card_delete{
   font-size: 1.5rem;
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .card_place{
@@ -427,40 +436,50 @@ textarea{
   padding-right: 5rem;
 }
 
+.rating {
+  margin-left: 20px;
+  text-align: left !important;
+}
+
 .card_body_wrap{
   display: flex;
   flex-direction: column;
-  height: 15px;
+  margin-left: 20px;
 }
 
 .card_body_header_stars > .stars{
   font-size: 1.4rem;
 }
 .card_body_heart{
-  font-size: 1.2rem;
+  font-size: 1.7rem;
 }
 
 .card_body_title{
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  width: 200px;
+  width: 90%;
   margin-left: 20px;
+  margin-right: 20px;
   margin-bottom: 5px;
   font-size: 1rem;
 }
+
+.flexleft,
+.flexright  {
+  display: flex;
+}
+
 .card_body_place{
+  margin-top: 5px;
   margin-right: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .card_body_header_class{
   font-size: 0.8rem;
-}
-
-.card_bottom_wrap{
-  display: flex;
-  flex-direction: column;
-  margin-left: -20px;
-  height: 15px;
+  padding-top: 0.5rem;
 }
 
 .card_body_address{
@@ -469,7 +488,10 @@ textarea{
 
 .card_body_content{
   display: flex;
-  margin-left: 48px;
+}
+
+.relative {
+  position: relative;
 }
 
 /* JY: Feed end */
@@ -542,7 +564,6 @@ textarea{
   height: 40px;
   padding: 0 10px;
   vertical-align: middle;
-  border: 2px solid #dddddd;
   border-top: 0px;
   border-left: 0px;
   border-right: 0px;
