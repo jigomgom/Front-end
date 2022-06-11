@@ -1,3 +1,4 @@
+
 import React , {useState} from 'react';
 import S3 from 'react-aws-s3';
 
@@ -7,6 +8,7 @@ window.Buffer = window.Buffer || require("buffer").Buffer;
 // a React functional component, used to create a simple upload input and button
 
 const TestUpload = () => {
+
     const [selectedFile, setSelectedFile] = useState(null);
     
     // the configuration information is fetched from the .env file
@@ -43,10 +45,13 @@ const TestUpload = () => {
     }
     return <div>
         <div>React S3 File Upload</div>
+
         <input type="file" onChange={handleFileInput}/>
         <br></br>
         <button onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
     </div>
-}
+
+};
+
 
 export default TestUpload;

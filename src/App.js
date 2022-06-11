@@ -7,6 +7,7 @@ import Nav from "./components/Nav";
 import Feed from "./pages/Feed";
 import Login from "./pages/Login";
 import Signup from "./pages/SignUp";
+import TestUpload from "./components/TestUpload";
 import Upload from "./pages/Upload";
 import Edit from "./pages/Edit";
 import Footer from "./components/Footer";
