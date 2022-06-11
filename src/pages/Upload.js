@@ -15,6 +15,7 @@ const Upload = ()=> {
     
     // Radio checkbox
     const [layout, setLayout] = React.useState('');
+    
     const handleChange = (event) => {
         setLayout(event.target.value)
     }
