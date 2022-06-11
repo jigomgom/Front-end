@@ -16,6 +16,18 @@ const Upload = ()=> {
     // add Post
     const _img = React.useRef(null);
     const _txt = React.useRef(null);
+
+
+    
+    // Radio checkbox
+    const [layout, setLayout] = React.useState('');
+    
+    const handleChange = (event) => {
+        setLayout(event.target.value)
+    }
+    console.log(layout)
+
+
     const inputFile = useRef(null);
     
     //file uploader

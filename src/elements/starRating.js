@@ -7,7 +7,7 @@ export const Stars = () => {
  const [rating, setRating] = useState(0) // initial rating value
 
   // Catch Rating value
-  const handleRating = (rate: number) => {
+  const handleRating = ( rate ) => {
     setRating(rate)
     // other logic
     console.log(rate);

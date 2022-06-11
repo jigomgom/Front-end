@@ -12,6 +12,8 @@ import Upload from "./pages/Upload";
 import Edit from "./pages/Edit";
 import Footer from "./components/Footer";
 
+import TestUpload from "./components/TestUpload";
+
 import { useDispatch } from "react-redux";
 
 function App() {
@@ -31,6 +33,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/join" element={<Signup />}></Route>
           <Route path="/edit/:id" element={<Edit />}></Route>
+          <Route path="/testUpload" element={<TestUpload />}></Route>
         </Routes>
 
       </div>
