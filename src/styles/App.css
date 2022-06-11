@@ -21,6 +21,8 @@
   --login-button-color : #c0bdbd;
   --waring-color: #ff2626;
   --font-size-small: 0.9rem;
+  /* JY : Footer 배경 색, 변경 예정 */
+  --footer-background-color: #66a1fa;
 }
 
 .primary-color{
@@ -39,6 +41,8 @@
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
+  /* JY: Footer와 마진 주기 */
+  margin-bottom: 20px;
 }
 
 .background {
@@ -576,3 +580,14 @@ textarea{
   border: 0;
 }
 /* JY: Input file type customize end */
+
+/* JY: Footer */
+.footer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 100%;
+  padding: 30px 0px;
+}
