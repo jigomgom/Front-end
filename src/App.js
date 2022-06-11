@@ -31,6 +31,7 @@ function App() {
           <Route path="/join" element={<Signup />}></Route>
           <Route path="/edit/:id" element={<Edit />}></Route>
         </Routes>
+
       </div>
       <Footer />
       <Up
@@ -49,6 +50,7 @@ function App() {
       >
         ⇧
       </Up>
+
     </div>
   );
 }
