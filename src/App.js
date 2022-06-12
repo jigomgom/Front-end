@@ -1,8 +1,19 @@
+/*
+test2@dev.com
+test1234
+
+dev@dev.com
+test1234
+*/
+
 import "./styles/App.css";
 import styled from "styled-components";
 import React from "react";
 
 import { Routes, Route, useNavigate } from "react-router-dom";
+
+import axios from "axios";
+
 import Nav from "./components/Nav";
 import Feed from "./pages/Feed";
 import Login from "./pages/Login";
@@ -16,6 +27,28 @@ function App() {
   React.useEffect(() => {}, []);
   const navigate = useNavigate();
 
+  // const testUploadClick = async () => {
+  //   const Token = localStorage.getItem("access_token");
+  //   const UploadFeedData = {
+  //     storeName: "코스트코",
+  //     address: "delete test1",
+  //     menu: "양식",
+  //     stars: 3,
+  //     img_url: "https://jejueats-img.s3-ap-northeast-2.amazonaws.com/food.jpg",
+  //     comment: "JMT",
+  //   };
+  //   axios
+  //     .post("http://13.124.223.73/api/store", UploadFeedData, {
+  //       headers: {
+  //         Authorization: Token,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((e) => console.log(e));
+  // };
+
   return (
     <div className="App">
       <Nav />
@@ -28,7 +61,8 @@ function App() {
           <Route path="/edit/:id" element={<Edit />}></Route>
           <Route path="/testUpload" element={<TestUpload />}></Route>
         </Routes>
-
+        {/* <button onClick={testUploadClick}>Test Upload</button>
+        <button onClick={testGetClick}>Test Get</button> */}
       </div>
       <Footer />
       <Up
@@ -47,7 +81,6 @@ function App() {
       >
         ⇧
       </Up>
-
     </div>
   );
 }

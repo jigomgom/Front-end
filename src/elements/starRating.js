@@ -10,7 +10,7 @@ export const Stars = () => {
   const handleRating = ( rate ) => {
     setRating(rate)
     // other logic
-    console.log(rate);
+    // console.log(rate);
 }
   return (
     <div className='star-rating mg40'>
@@ -22,7 +22,7 @@ export const Stars = () => {
 
 export const StarDisplay = (props) => {
   
-  console.log(props.rate)
+  // console.log(props.rate)
   return (
     <div className='rating'>
       <Rating ratingValue={props.rate} fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}  size="22px" readonly={true} /* Available Props */ />
