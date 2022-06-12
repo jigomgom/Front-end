@@ -20,6 +20,8 @@
   /* JY : add color value*/
   --feed-background-color: rgb(255, 255, 255);
   --login-button-color : #c0bdbd;
+  /* JY: valid message color */
+  --valid-color: #5493f1;
   --waring-color: #ff2626;
   --font-size-small: 0.9rem;
   /* JY : Footer 배경 색, 변경 예정 */
@@ -499,6 +501,51 @@ textarea{
 /* JY : Join Id form create */
 .id_form{
   display: flex;
+  align-items: center;
+}
+
+/* JY: Valid ID and Nickname message */
+.message_div{
+  position:relative;
+  display: flex;
+  height: 15px;
+  width: 75%;
+  justify-content: center;
+}
+
+.print_message{
+  position: absolute;
+  display: inline-block;
+  font-size: 14px;
+  height: 10px;
+  font-style: italic;
+  top:-10px;
+}
+
+.message_Nickdiv{
+  position:relative;
+  display: flex;
+  height: 15px;
+  width: 100%;
+  justify-content: center;
+}
+
+.print_Nickmessage{
+  position: absolute;
+  display: inline-block;
+  font-size: 13px;
+  height: 10px;
+  font-style: italic;
+  top:-10px;
+}
+
+.message_Passworddiv{
+  position:relative;
+  display: flex;
+  height: 15px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
 .id_error{
@@ -525,7 +572,7 @@ textarea{
   border: none;
   background-color: transparent;
   border: 2px solid var(--line-color);
-  width: 90px;
+  width: 115px;
   height: 40px;
   display: flex;
   align-items: center;
@@ -534,6 +581,7 @@ textarea{
 
   font-weight: 600;
   font-style: italic;
+  margin-left: 15px;
 }
 
 .id_button:hover{
@@ -541,6 +589,11 @@ textarea{
   transform: scale(0.99);
 }
 
+/* JY : Nickname check button */
+.nick_form{
+  display: flex;
+  align-items: center;
+}
 /* JY : Join Id form end */
 
 /* JY : User icon input file coustomize */

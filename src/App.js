@@ -12,8 +12,6 @@ import Upload from "./pages/Upload";
 import Edit from "./pages/Edit";
 import Footer from "./components/Footer";
 
-import TestUpload from "./components/TestUpload";
-
 import { useDispatch } from "react-redux";
 
 function App() {
