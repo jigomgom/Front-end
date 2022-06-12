@@ -4,10 +4,17 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 
+import { useSelector, useDispatch } from "react-redux";
+
+import { changeLoginState } from "../redux/modules/feedSlice";
+
 // Server 주소
 const SERVER_ADDRESS = "http://13.124.223.73/api";
 
-const Login = () => {
+const Login = ( ) => {
+  // const loginState = useSelector( state => state.Feed.isLogin );
+  
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   // 이메일 확인
   const [email, setEmail] = React.useState("");
@@ -73,8 +80,10 @@ const Login = () => {
         if (response.data.response) {
           setEmailState(true);
           setPasswordState(true);
-          
           localStorage.setItem("access_token", response.headers.authorization);
+          localStorage.setItem( "loginState", true );
+          const CurrentLogin = localStorage.getItem("loginState");
+          dispatch( changeLoginState( CurrentLogin ) );
           navigate("/");
         } else {
           if (response.data.message === "존재하지 않는 아이디입니다.") {

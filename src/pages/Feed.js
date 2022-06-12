@@ -6,7 +6,7 @@ import UserIcon from "../asserts/images/default_user_icons.png";
 import SamplePhoto from "../asserts/images/food2.jpg";
 import SamplePhoto2 from "../asserts/images/soup.jpg";
 
-const Feed = () => {
+const Feed = ( ) => {
   return (
     <div className="container">
       <div className="feed-wrap">

@@ -12,13 +12,8 @@ import Upload from "./pages/Upload";
 import Edit from "./pages/Edit";
 import Footer from "./components/Footer";
 
-import { useDispatch } from "react-redux";
-
 function App() {
-  const dispatch = useDispatch();
-
   React.useEffect(() => {}, []);
-
   const navigate = useNavigate();
 
   return (
