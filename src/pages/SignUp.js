@@ -1,4 +1,26 @@
+/*
+  1.
+      username: "test@test.com",
+      password: "test1234",
+      passwordCheck:"test1234",
+      nickname: "TestUser",
+      icon_url : "sea.jpg",
+
+  2. id :jy@dev.com
+     nick:jiyong
+     pwd : test1234
+     url : null
+
+  3. id: dev@dev.com
+     nick : dev1
+     pwd : test1234
+     url : https://jejueats-img.s3-ap-northeast-2.amazonaws.com/sea.jpg
+*/
+
+
 import React from "react";
+
+import { useNavigate } from "react-router-dom";
 
 // import S3
 import S3 from "react-aws-s3";
@@ -13,6 +35,7 @@ const SERVER_ADDRESS = "http://13.124.223.73/api";
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
 const SignUp = () => {
+  const navigate = useNavigate();
   // 이메일 확인
   const [email, setEmail] = React.useState("");
   // Nickname 확인
@@ -50,6 +73,9 @@ const SignUp = () => {
   // 비밀번호 확인 검사
   const [isPasswordConfirm, setIsPasswordConfirm] = React.useState(false);
 
+  // User Icon URL PATH
+  const [ uploadFileURL, setuploadFileURL ] = React.useState("");
+
   // .env config
   const config = {
     bucketName: process.env.REACT_APP_BUCKET_NAME,
@@ -59,14 +85,7 @@ const SignUp = () => {
     testKey: process.env.REACT_APP_TEST,
   };
 
-  const Nick_regEx = /^[0-9a-zA-Z가-힣ㄱ-ㅎ]{2,6}$/;
-  // 정규식 끝
-
   // Ref value start
-  const ID_ref = React.useRef(null);
-  const PWD_ref = React.useRef(null);
-  const AGAIN_PWD_ref = React.useRef(null);
-  const NICK_ref = React.useRef(null);
   const IMG_PATH_ref = React.useRef(null);
   // Ref value end
 
@@ -90,10 +109,11 @@ const SignUp = () => {
   const onChangeNickname = (event) => {
     const nickRegEx = /^[0-9a-zA-Z]{4,20}$/;
     const nicknameCurrent = event.target.value;
-    setNickname( nicknameCurrent );
+    setNickname(nicknameCurrent);
     if (!nickRegEx.test(nicknameCurrent)) {
+      // if( nicknameCurrent.length < 4 || nicknameCurrent < 20 ){
       setNicknameMessage(
-        "Please write at least 2 characters and less than 20 characters."
+        "Please write at least 4 characters and less than 20 characters."
       );
       setIsNickname(false);
     } else {
@@ -105,12 +125,13 @@ const SignUp = () => {
 
   // 패스워드 검사
   const onChangePassword = (event) => {
-    const passwordRegEx = /^[A-Za-z0-9]{8,20}$/;
+    // const passwordRegEx = /^(?=.*\\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,20}$/;
+    const passwordRegEx = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/    
     // /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
     const passwordCurrent = event.target.value;
-    setPassword( passwordCurrent );
+    setPassword(passwordCurrent);
     if (!passwordRegEx.test(passwordCurrent)) {
-      setPasswordMessage("The password must be between 8 and 20 digits.");
+      setPasswordMessage("Please enter a minimum of 8 and a maximum of 20 characters including English and numeric characters.");
       setIsPassword(false);
     } else {
       setPasswordMessage("This is the correct format.");
@@ -122,7 +143,7 @@ const SignUp = () => {
   // 패스워드 확인 검사
   const onChangePasswordConfirm = (event) => {
     const passwordConfirmCurrent = event.target.value;
-    setPasswordConfirm( passwordConfirmCurrent );
+    setPasswordConfirm(passwordConfirmCurrent);
     if (password === passwordConfirmCurrent) {
       setPasswordConfirmMessage("The password is the same.");
       setIsPasswordConfirm(true);
@@ -134,6 +155,12 @@ const SignUp = () => {
 
   // Email 중복 체크
   const onClickEmailConfirm = async () => {
+    if( email === "" ){
+      checkOverlapEmail( false );
+      setEmailMessage("Please input your email.");
+    }
+
+    if( isEmail ){
     await axios
       .get(`${SERVER_ADDRESS}/checkId/${email}`)
       .then((response) => {
@@ -142,7 +169,8 @@ const SignUp = () => {
           setOverlapEmailMessage("This is the email you can sign up for.");
         } else {
           checkOverlapEmail(false);
-          setOverlapEmailMessage("This is the registered email.");
+          setIsEmail( false );
+          setEmailMessage("This is the registered email.");
         }
       })
       .catch((err) => {
@@ -150,15 +178,19 @@ const SignUp = () => {
         checkOverlapEmail(false);
         setEmailMessage("Please input your email.");
       });
+    }else{
+
+    }
   };
 
   // Nick name 중복체크
   const onClickNickNameConfirm = async () => {
-    if (nickname === null) {
+    if (nickname === "") {
       console.log(nickname);
       checkOverlapNickName(false);
       setNicknameMessage("Please input your Nickname.");
-    } else {
+    } 
+    if( isNickname ) {
       await axios
         .get(`${SERVER_ADDRESS}/checkNickname/${nickname}`)
         .then((response) => {
@@ -169,13 +201,86 @@ const SignUp = () => {
             );
           } else {
             checkOverlapNickName(false);
-            setOverlapNicknameMessage("This is the registered Nickname.");
+            setIsNickname( false );
+            setNicknameMessage("This is the registered Nickname.");
           }
         })
         .catch((err) => {
           checkOverlapNickName(false);
           setNicknameMessage("Please input your email.");
         });
+    }else{
+
+    }
+  };
+
+  // User Icon imgage 가져오기
+  const handleFileInput = (e) => {
+    if (e.target.files[0].name.length > 0) {
+      IMG_PATH_ref.current.value = e.target.files[0].name;
+      uploadFileToS3( e.target.files[0] );
+    }
+  };
+  // Icon S3에 업로드 하기
+  const uploadFileToS3 = async (file) => {
+    const ReactS3Client = new S3(config);
+
+    ReactS3Client.uploadFile(file, file.name)
+      .then((data) => {
+        // console.log(file);
+        // console.log(file.name);
+        console.log(data.location);
+        // 업로드한 URL 가져오기
+        setuploadFileURL( data.location );
+      })
+      .catch((err) => {
+        // console.log(file);
+        // console.log(file.name);
+        console.error(err);
+      });
+  };
+
+  // 회원 등록하기
+  const registerUserClickEvent = async () => {
+    console.log( OverlapEmail, OverLapNickName, isEmail, isNickname, isPassword, isPasswordConfirm );
+    if( !OverlapEmail ){
+      window.alert("Please check for duplicate emails.");
+    }
+
+    if( !OverLapNickName ){
+      window.alert("Please check for duplicate nickname.");
+    }
+
+    let Finalvalidity = isEmail && OverlapEmail && OverLapNickName && isNickname && isPassword && isPasswordConfirm;
+    // Finalvalidity = OverlapEmail;
+    // Finalvalidity = OverLapNickName;
+    // Finalvalidity = isNickname;
+    // Finalvalidity = isPassword;
+    // Finalvalidity = isPasswordConfirm;
+    console.log( Finalvalidity );
+    if( Finalvalidity ){
+      const UserData = {
+        username : email,
+        password : password,
+        passwordCheck : passwordConfirm,
+        nickname: nickname,
+        icon_url: uploadFileURL,
+      }
+      console.log( email, nickname, password, passwordConfirm, uploadFileURL );
+      await axios.post(`${SERVER_ADDRESS}/signup`, UserData)
+      .then( response => {
+        if( response.data.response ){
+          console.log("회원가입 허가");
+          window.alert(`${nickname}! Congratulations on becoming a member.`);
+          navigate("/login");
+        }else{
+          window.alert("This is the registered email.");
+        }
+      })
+      .catch( err => console.log( err ) );
+    }else{
+      window.alert("Please check the signup form.");
+      console.log("회원가입 불가");
     }
   };
 
@@ -188,10 +293,9 @@ const SignUp = () => {
           <input
             type="text"
             placeholder="email only"
-            ref={ID_ref}
             onChange={onChangeEmail}
           ></input>
-          <label className="id_button" onClick={onClickEmailConfirm}>
+          <label className="id_button" onClick={onClickEmailConfirm} >
             Check
           </label>
         </div>
@@ -200,17 +304,29 @@ const SignUp = () => {
             <span className="print_message" style={{ color: "#5493f1" }}>
               {OverlapEmailMessage}
             </span>
-          ) : email.length > 0 ? ( <span className="print_message" style={{ color: isEmail ? "#5493f1" : "#ff2626" }}>
+          ) : email.length > 0 ? (
+            <span
+              className="print_message"
+              style={{ color: isEmail ? "#5493f1" : "#ff2626" }}
+            >
               {emailMessage}
             </span>
-          ) : (<span className="print_message" style={{ color: "#ff2626" }}>{emailMessage}</span>)}
+          ) : (
+            <span className="print_message" style={{ color: "#ff2626" }}>
+              {emailMessage}
+            </span>
+          )}
         </div>
         {/* Email end */}
 
         {/* User Icon start */}
         <label className="boldtext icon_label">User Icon</label>
         <div className="filebox">
-          <img className="upload_icon" src={Thunail} alt="" />
+          <img
+            className="upload_icon"
+            src={uploadFileURL ? uploadFileURL : Thunail}
+            alt=""
+          />
           <input
             type="text"
             className="upload-name"
@@ -218,24 +334,23 @@ const SignUp = () => {
             ref={IMG_PATH_ref}
           />
           <label htmlFor="file">Open</label>
-          <input type="file" id="file" onChange={() => {}} />
+          <input type="file" id="file" onChange={handleFileInput} />
         </div>
         {/* User Icon end */}
-        
+
         {/* Nickname start */}
-          <label className="boldtext">Name</label>
-          <div className="nick_form">
-            <input
-              type="text"
-              placeholder="Input Nick name"
-              ref={NICK_ref}
-              onChange={onChangeNickname}
-            ></input>
-            <label className="id_button" onClick={onClickNickNameConfirm}>
-              Check
-            </label>
-          </div>
-          <div className="message_Nickdiv">
+        <label className="boldtext">Name</label>
+        <div className="nick_form">
+          <input
+            type="text"
+            placeholder="Input Nick name"
+            onChange={onChangeNickname}
+          ></input>
+          <label className="id_button" onClick={onClickNickNameConfirm}>
+            Check
+          </label>
+        </div>
+        <div className="message_Nickdiv">
           {OverLapNickName ? (
             <span className="print_Nickmessage" style={{ color: "#5493f1" }}>
               {OverlapNicknameMessage}
@@ -260,11 +375,17 @@ const SignUp = () => {
         <input
           type="password"
           placeholder="8-20 characters"
-          ref={PWD_ref}
           onChange={onChangePassword}
         ></input>
         <div className="message_Passworddiv">
-          { password.length > 0  && <sapn className="print_message" style={{ color: isPassword ? "#5493f1" : "#ff2626"}}>{passwordMessage}</sapn>}
+          {password.length > 0 && (
+            <span
+              className="print_message"
+              style={{ color: isPassword ? "#5493f1" : "#ff2626" }}
+            >
+              {passwordMessage}
+            </span>
+          )}
         </div>
 
         {/* Password end */}
@@ -273,14 +394,20 @@ const SignUp = () => {
         <input
           type="password"
           placeholder="8-20 characters"
-          ref={AGAIN_PWD_ref}
           onChange={onChangePasswordConfirm}
         ></input>
         <div className="message_Passworddiv">
-          { passwordConfirm.length > 0  && <sapn className="print_message" style={{ color: isPasswordConfirm ? "#5493f1" : "#ff2626"}}>{passwordConfirmMessage}</sapn>}
+          {passwordConfirm.length > 0 && (
+            <span
+              className="print_message"
+              style={{ color: isPasswordConfirm ? "#5493f1" : "#ff2626" }}
+            >
+              {passwordConfirmMessage}
+            </span>
+          )}
         </div>
       </div>
-      <div className="btn lg-btn boldtext" onClick={() => {}}>
+      <div className="btn lg-btn boldtext" onClick={registerUserClickEvent}>
         Register
       </div>
     </div>
