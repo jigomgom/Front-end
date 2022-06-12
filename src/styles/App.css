@@ -261,7 +261,14 @@ textarea{
   display: none !important;
 }
 
-
+/* JY: Login message 추가 */
+.message_Logindiv{
+  position:relative;
+  display: flex;
+  height: 15px;
+  width: 100%;
+  justify-content: center;
+}
 
 /* Upload 사진올리기 */
 

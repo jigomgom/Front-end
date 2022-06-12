@@ -1,11 +1,4 @@
 /*
-  1.
-      username: "test@test.com",
-      password: "test1234",
-      passwordCheck:"test1234",
-      nickname: "TestUser",
-      icon_url : "sea.jpg",
-
   2. id :jy@dev.com
      nick:jiyong
      pwd : test1234
@@ -57,8 +50,7 @@ const SignUp = () => {
   // 이메일 중복 검사 메세지 상태 저장
   const [OverlapEmailMessage, setOverlapEmailMessage] = React.useState("");
   // 닉네임 중복 검사 메세지 상태 저장
-  const [OverlapNicknameMessage, setOverlapNicknameMessage] =
-    React.useState("");
+  const [OverlapNicknameMessage, setOverlapNicknameMessage] = React.useState("");
 
   // 이메일 유효성 검사
   const [isEmail, setIsEmail] = React.useState(false);
