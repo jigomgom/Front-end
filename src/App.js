@@ -58,7 +58,7 @@ function App() {
           <Route path="/upload" element={<Upload />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/join" element={<Signup />}></Route>
-          <Route path="/edit/:id" element={<Edit />}></Route>
+          <Route path="/edit" element={<Edit />}></Route>
           <Route path="/testUpload" element={<TestUpload />}></Route>
         </Routes>
         {/* <button onClick={testUploadClick}>Test Upload</button>

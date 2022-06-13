@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { StarDisplay } from "./../elements/starRating";
-
 import { useSelector, useDispatch } from "react-redux";
-
 import { getFeedLists, deleteFeedLists } from "../redux/modules/feedSlice";
+import { useNavigate } from "react-router-dom";
 
 // JY : import Sample Icon
 import UserIcon from "../asserts/images/default_user_icons.png";
@@ -14,6 +13,7 @@ const Feed = () => {
   const FeedLists = useSelector((state) => state.Feed.list);
   console.log( FeedLists );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getFeedLists());
@@ -40,7 +40,9 @@ const Feed = () => {
               </div>
               <div className="headflex">
                 <div>
-                  <span className="material-icons card_edit">edit</span>
+                  <span className="material-icons card_edit" onClick={()=>{
+                    navigate(`/edit`, {state: {item}})
+                  }}>edit</span>
                 </div>
                 <div>
                   <span
@@ -76,7 +78,7 @@ const Feed = () => {
                 </div>
               </div>
 
-              <StarDisplay rate={item.stars * 20} />
+              <StarDisplay rate={item.stars} />
 
               <div className="card_body_wrap">
                 <div className="card_body_content">

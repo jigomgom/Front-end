@@ -3,7 +3,7 @@ import { Rating } from 'react-simple-star-rating'
 import styled from 'styled-components';
 
  
-export const Stars = () => {
+export const Stars = ({star, getData}) => {
  const [rating, setRating] = useState(0) // initial rating value
 
   // Catch Rating value
@@ -11,6 +11,7 @@ export const Stars = () => {
     setRating(rate)
     // other logic
     // console.log(rate);
+    getData(rate)
 }
   return (
     <div className='star-rating mg40'>

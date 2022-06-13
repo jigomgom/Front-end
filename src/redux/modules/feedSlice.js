@@ -45,6 +45,46 @@ export const deleteFeedLists = createAsyncThunk(
   }
 );
 
+// Feed 추가하기 -> uploadFeedFB
+export const uploadFeed = createAsyncThunk("POST/uploadFeed", async(Feed)=>{
+  const FeedData = {
+    storeName: Feed.storeName,
+    address : Feed.address,
+    menu : Feed.menu,
+    img_url: Feed.img_url,
+    stars : Feed.stars,
+    comment : Feed.comment
+  }
+  console.log(FeedData);
+
+  await axios.post(`${SERVER_URL}/store`, FeedData, {headers:{ "Authorization" : Feed.token}})
+  .then(response =>{
+    console.log(response)
+  })
+
+  return FeedData;
+});
+
+// Feed 수정하기 -> editFeedFB
+export const editFeed = createAsyncThunk("PUT/editFeed", async(Feed) => {
+  const FeedData2 = {
+    storeName: Feed.storeName,
+    address : Feed.address,
+    menu : Feed.menu,
+    img_url: Feed.img_url,
+    stars : Feed.stars,
+    comment : Feed.comment
+  }
+  console.log(FeedData2)
+  const feedid = Feed.id;
+  await axios.put(`${SERVER_URL}/store/${Feed.id}`, FeedData2, {headers:{ "Authorization" : Feed.token}})
+  .then(response =>{
+    console.log(response);
+  })
+  
+  return feedid;
+});
+
 const FeedSlice = createSlice({
   name: "Feed",
   initialState: {
@@ -64,6 +104,7 @@ const FeedSlice = createSlice({
   },
   extraReducers: {
     // middlewares
+    //getFeedLists
     [getFeedLists.fulfilled]: (state, action) => {
       console.log("Get fullfill");
       // console.log( current( state.list ) );
@@ -73,6 +114,31 @@ const FeedSlice = createSlice({
     [getFeedLists.rejected]: (state, action) => {
       console.log("Get reject");
     },
+    
+    //uploadFeed
+    [uploadFeed.fulfilled]: (state, action) => {
+        console.log("Upload fullfill");
+        state.list = [...current(state.list), action.payload];
+      }
+    },
+    [uploadFeed.rejected]: (state, action) => {
+      console.log("Upload reject");
+    },
+
+    //editFeed
+    [editFeed.fulfilled]: (state, action) => {
+      console.log("Edit fullfill");
+      console.log(action.payload);
+      const new_list = current(state.list).filter((item) => item.id !== action.payload);
+      console.log(new_list);
+      state.list = new_list;
+    },
+    
+    [editFeed.rejected]: (state, action) => {
+      console.log("Edit reject");
+    },
+
+    //deleteFeedLists
     [deleteFeedLists.fulfilled]: (state, action) => {
       if (action.payload) {
         const lists = current(state.list).filter((item, index) => {
@@ -85,7 +151,7 @@ const FeedSlice = createSlice({
     [deleteFeedLists.rejected]: (state, action) => {
       console.log("Delete reject");
     },
-  },
+    
 });
 
 export const { changeLoginState, deleteFeedState } = FeedSlice.actions;
