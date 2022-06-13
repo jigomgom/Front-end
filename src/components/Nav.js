@@ -1,13 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { changeLoginState } from "../redux/modules/feedSlice";
 import styled from "styled-components";
 
-const Navbar = (props) => {
-  const [logIn, setLogin] = useState("false");
+const Navbar = () => {
+  const loginState = useSelector((state) => state.Feed.isLogin);
+  const dispatch = useDispatch();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    // Update, re-render, 새로고침이 되도 localStorage의 상태를 보고 로그인 상태를 유지하자.
+    dispatch(changeLoginState(localStorage.getItem("loginState")));
+  }, []);
 
-  const logout = () => {};
+  const logout = () => {
+    console.log(localStorage.getItem("access_token"));
+    localStorage.removeItem("access_token");
+    localStorage.setItem("loginState", false);
+    const currentLogin = localStorage.getItem("loginState");
+    dispatch(changeLoginState(currentLogin));
+
+    console.log(localStorage.getItem("access_token"));
+  };
 
   const navigate = useNavigate();
 
@@ -22,7 +36,7 @@ const Navbar = (props) => {
         >
           밥먹언?
         </h2>
-        <Before className="linkwrap" logIn={logIn}>
+        <Before className="linkwrap" logIn={loginState}>
           <h4
             className="link"
             onClick={() => {
@@ -37,18 +51,16 @@ const Navbar = (props) => {
               navigate("/join");
             }}
           >
-            {" "}
             Join
           </h4>
         </Before>
-        <After className="linkwrap" logIn={logIn}>
+        <After className="linkwrap" logIn={loginState}>
           <h4
             className="link"
             onClick={() => {
               logout();
             }}
           >
-            {" "}
             Logout
           </h4>
         </After>
