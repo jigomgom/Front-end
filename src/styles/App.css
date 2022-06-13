@@ -217,7 +217,7 @@ textarea{
 .card_img_wrapper{
  height: 270px;
  margin: 0px;
- max-width: 100%;
+ width: 100%;
  object-fit: cover;
  overflow: hidden;
 }
@@ -378,8 +378,8 @@ textarea{
 /* Feed 메인피드 */
 /* JY : Feed wrap 추가 */
 .feed-wrap{
-  width: 30%;
-  min-width: 350px;
+ 
+  width: 350px;
   height: 50vh;
   min-height: 450px;
   border : 2px solid rgba(7, 5, 5, 0.14);
