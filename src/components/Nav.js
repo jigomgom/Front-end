@@ -14,13 +14,13 @@ const Navbar = () => {
   }, []);
 
   const logout = () => {
-    console.log(localStorage.getItem("access_token"));
+    // console.log(localStorage.getItem("access_token"));
     localStorage.removeItem("access_token");
     localStorage.setItem("loginState", false);
     const currentLogin = localStorage.getItem("loginState");
     dispatch(changeLoginState(currentLogin));
 
-    console.log(localStorage.getItem("access_token"));
+    // console.log(localStorage.getItem("access_token"));
   };
 
   const navigate = useNavigate();

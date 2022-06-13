@@ -476,6 +476,15 @@ textarea{
 .flexleft,
 .flexright  {
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* JY: 좋아요 글 */
+.isLike{
+  font-size: var(--font-size-small);
+  font-weight: bold;
+  margin-right: 7px;
 }
 
 .card_body_place{

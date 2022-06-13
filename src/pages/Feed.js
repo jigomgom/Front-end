@@ -11,7 +11,8 @@ import SamplePhoto from "../asserts/images/food2.jpg";
 
 const Feed = () => {
   const FeedLists = useSelector((state) => state.Feed.list);
-  console.log( FeedLists );
+  const loginState = useSelector((state) => state.Feed.isLogin);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,8 +20,12 @@ const Feed = () => {
     dispatch(getFeedLists());
   }, []);
 
-  const deleteFeedClickEventListener = ( id ) => {
-    dispatch( deleteFeedLists( id ) );
+  const deleteFeedClickEventListener = (id) => {
+    if (loginState) {
+      dispatch(deleteFeedLists(id));
+    }else{
+      window.alert("Login is required.");
+    }
   };
 
   return (
@@ -40,15 +45,23 @@ const Feed = () => {
               </div>
               <div className="headflex">
                 <div>
-                  <span className="material-icons card_edit" onClick={()=>{
-                    navigate(`/edit`, {state: {item}})
-                  }}>edit</span>
+                  <span
+                    className="material-icons card_edit"
+                    // onClick={() => {
+                    //   navigate(`/edit`, { state: { item } });
+                    // }}
+                    onClick={ () => {
+                       loginState ? ( navigate(`/edit`, { state: { item } }) ):( window.alert("Login is required."))
+                    }}
+                  >
+                    edit
+                  </span>
                 </div>
                 <div>
                   <span
                     className="material-icons card_delete"
                     onClick={() => {
-                      deleteFeedClickEventListener(item.id );
+                      deleteFeedClickEventListener(item.id);
                     }}
                   >
                     delete
@@ -75,6 +88,7 @@ const Feed = () => {
                   <span className="material-icons card_body_heart">
                     favorite_border
                   </span>
+                  <div className="isLike">좋아요 10개</div>
                 </div>
               </div>
 

@@ -10,6 +10,7 @@ import "./styles/App.css";
 import styled from "styled-components";
 import React from "react";
 
+import { useSelector } from "react-redux";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 import axios from "axios";
@@ -26,7 +27,8 @@ import Footer from "./components/Footer";
 function App() {
   React.useEffect(() => {}, []);
   const navigate = useNavigate();
-
+  const loginState = useSelector( state => state.Feed.isLogin);
+  // console.log( loginState );
   // const testUploadClick = async () => {
   //   const Token = localStorage.getItem("access_token");
   //   const UploadFeedData = {
@@ -68,7 +70,7 @@ function App() {
       <Up
         className="addbtn"
         onClick={() => {
-          navigate("/upload");
+          loginState ? ( navigate("/upload") ) : ( window.alert("Login is required.") )
         }}
       >
         +
