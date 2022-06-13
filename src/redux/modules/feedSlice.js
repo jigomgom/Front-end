@@ -75,14 +75,14 @@ export const editFeed = createAsyncThunk("PUT/editFeed", async(Feed) => {
     stars : Feed.stars,
     comment : Feed.comment
   }
-  console.log(FeedData2)
-  const feedid = Feed.id;
+  console.log(FeedData2);
+
   await axios.put(`${SERVER_URL}/store/${Feed.id}`, FeedData2, {headers:{ "Authorization" : Feed.token}})
   .then(response =>{
-    console.log(response);
+    console.log(response)
   })
   
-  return feedid;
+  return Feed;
 });
 
 const FeedSlice = createSlice({
@@ -119,7 +119,6 @@ const FeedSlice = createSlice({
     [uploadFeed.fulfilled]: (state, action) => {
         console.log("Upload fullfill");
         state.list = [...current(state.list), action.payload];
-      }
     },
     [uploadFeed.rejected]: (state, action) => {
       console.log("Upload reject");
@@ -151,6 +150,7 @@ const FeedSlice = createSlice({
     [deleteFeedLists.rejected]: (state, action) => {
       console.log("Delete reject");
     },
+  } 
     
 });
 
