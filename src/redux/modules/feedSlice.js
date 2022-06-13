@@ -31,6 +31,8 @@ export const deleteFeedLists = createAsyncThunk(
             console.log( response );
           if (response.data.message === "본인의 게시글이 아닙니다.") {
             window.alert("It's not your feed");
+          }else if( response.data.message === "로그인이 필요합니다." ){
+            window.alert("Login is required.");
           }
         }
       })
