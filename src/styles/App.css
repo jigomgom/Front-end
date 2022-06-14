@@ -30,6 +30,71 @@
 /* ROOT END */
 
 
+@font-face {
+  font-family: 'GowunDodum-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GowunBatang-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunBatang-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* GOOGLE MATERIAL ICONS */
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    /* url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+    url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+    url(https://example.com/MaterialIcons-Regular.ttf) format('truetype'); */
+}
+
+* {
+  font-family: 'GowunDodum-Regular';
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 30px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  padding: 3px;
+  cursor: pointer;
+  color: grey;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+.material-icons:hover {
+  color: var(--primary-color);
+}
+/* GOOGLE MATERIAL ICONS END */
+
 /* GLOBAL ELEMENT */
 
 .primary-color{
@@ -154,53 +219,6 @@ textarea{
 /* GLOBAL ELEMENT END */
 
 
-/* GOOGLE MATERIAL ICONS */
-
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
-  src: local('Material Icons'),
-    local('MaterialIcons-Regular'),
-    /* url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
-    url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
-    url(https://example.com/MaterialIcons-Regular.ttf) format('truetype'); */
-}
-
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 30px;  /* Preferred icon size */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-  padding: 3px;
-  cursor: pointer;
-  color: grey;
-
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
-
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
-
-  /* Support for IE. */
-  font-feature-settings: 'liga';
-}
-
-.material-icons:hover {
-  color: var(--primary-color);
-}
-/* GOOGLE MATERIAL ICONS END */
-
 
 /* NAVBAR */
 
@@ -225,7 +243,8 @@ textarea{
 .head {
   padding-left: 0.5rem;
   cursor: pointer;
-  font-size:1.7rem;
+  font-size:1.9rem;
+  font-family: 'GowunBatang-Regular';
 }
 
 .linkwrap {
@@ -315,13 +334,13 @@ textarea{
   flex-direction: row;
   margin: 40px auto;
   justify-content: space-around;
-  gap:50px;
+  gap:0px;
   background: transparent;
   flex-wrap: wrap;
 }
 
 .card-wrap {
-  width: 300px;
+  width: 370px;
   height: 300px;
   position: relative;
 }
