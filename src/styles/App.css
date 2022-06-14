@@ -4,7 +4,7 @@
 
 
 
-/* root*/
+/* ROOT */
 
 :root {
   --primary-color: #ff9100;
@@ -27,6 +27,10 @@
   /* JY : Footer 배경 색, 변경 예정 */
   --footer-background-color: #66a1fa;
 }
+/* ROOT END */
+
+
+/* GLOBAL ELEMENT */
 
 .primary-color{
   color: var(--primary-color);
@@ -37,14 +41,12 @@
   margin-bottom: 0.5rem;
 }
 
-
 .container {
   max-width: var(--container-width);
   height: 100%;
-  margin: 0 auto;
+  margin: 30px auto;
   display: flex;
   flex-wrap: wrap;
-  /* JY: Footer와 마진 주기 */
   margin-bottom: 20px;
   justify-content: space-around;
 }
@@ -103,7 +105,56 @@ textarea{
   flex-direction: column;
 }
 
-/* google maeterial symbols */
+.btn {
+  cursor: pointer;
+  outline:none;
+  border: none;
+  background-color: transparent;
+  border: 2px solid var(--line-color);
+  border-radius: 20px;
+}
+
+.addbtn {
+  right: 80px !important;
+  text-align: center;
+  align-items: center;
+}
+
+.md-btn {
+  width: 60px;
+  height: 30px;
+  padding: 5px 5px 0px 5px;
+
+}
+
+.lg-btn {
+  width: 100%;
+  height: 30px;
+  padding: 8px 5px 2px 5px;
+  margin-bottom: 15px;
+}
+.btn:hover{
+  border: 2px solid var(--primary-color);
+  transform: scale(0.99);
+}
+
+
+.mgright1 {
+  margin-right: 1rem;
+}
+
+.mgleft1 {
+  margin-left: 1rem;
+}
+
+.mg40 {
+  margin-top: 40px;
+  margin-bottom:40px;
+}
+/* GLOBAL ELEMENT END */
+
+
+/* GOOGLE MATERIAL ICONS */
 
 @font-face {
   font-family: 'Material Icons';
@@ -148,13 +199,12 @@ textarea{
 .material-icons:hover {
   color: var(--primary-color);
 }
+/* GOOGLE MATERIAL ICONS END */
 
 
-/* App.js */
+/* NAVBAR */
 
-/* Navbar 상단메뉴 */
 .navbar {
-  /* JY : Navar Height 50->70px */
   height: 70px;
   width: 100%;
   top: 0px;
@@ -169,7 +219,6 @@ textarea{
   font-weight: bold;
   padding-top: 5px;
   padding-bottom: 15px;
-  /* JY : Navar item center */
   justify-content: center;
 }
 
@@ -237,9 +286,126 @@ textarea{
   border-radius: 50%;
   margin-right: 1rem;
 }
+/* NAVBAR END */
+
+/* CAROUSELS */
+
+.carousel-container {
+  width: 100%;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: row;
+}
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.heading1 {
+  margin-top: 40px;
+  height: 40px;
+}
+
+.container3 {
+  margin-bottom: 60px;
+}
+
+.carouselbox {
+  display: flex;
+  flex-direction: row;
+  margin: 40px auto;
+  justify-content: space-around;
+  gap:50px;
+  background: transparent;
+  flex-wrap: wrap;
+}
+
+.card-wrap {
+  width: 300px;
+  height: 300px;
+  position: relative;
+}
+
+.card-wrap>img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.card-wrap:hover .overlay {
+  opacity: 1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  backdrop-filter: blur(1px);
+}
+
+.tag {
+  color: white;
+  font-size: 20px;
+  line-height: 33px;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.heading2{
+  margin-top: 10px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imgwrapper {
+  background-color: grey;
+  height: 50%;
+  width: 30%;
+}
 
 
-/* Join / login */
+/* CAROUSELS END */
+
+/* LOGIN , JOIN */
 
 .containersm {
   display: flex;
@@ -260,7 +426,6 @@ textarea{
   display: none !important;
 }
 
-/* JY: Login message 추가 */
 .message_Logindiv{
   position:relative;
   display: flex;
@@ -268,8 +433,10 @@ textarea{
   width: 100%;
   justify-content: center;
 }
+/* LOGIN , JOIN END */
 
-/* Upload 사진올리기 */
+
+/* UPLOAD */
 
 .form_wrapper2 {
   width: 100%;
@@ -319,64 +486,11 @@ textarea{
 .color-primary{
   color:var(--primary-color);
 }
+/* UPLOAD END */
 
 
+/* MAIN FEED*/
 
-/* Replace 수정하기 */
-
-
-/*element */
-.btn {
-  cursor: pointer;
-  outline:none;
-  border: none;
-  background-color: transparent;
-  border: 2px solid var(--line-color);
-  border-radius: 20px;
-}
-
-.addbtn {
-  right: 80px !important;
-  text-align: center;
-  align-items: center;
-}
-
-.md-btn {
-  width: 60px;
-  height: 30px;
-  padding: 5px 5px 0px 5px;
-
-}
-
-.lg-btn {
-  width: 100%;
-  height: 30px;
-  padding: 8px 5px 2px 5px;
-  margin-bottom: 15px;
-}
-.btn:hover{
-  border: 2px solid var(--primary-color);
-  transform: scale(0.99);
-}
-
-
-.mgright1 {
-  margin-right: 1rem;
-}
-
-.mgleft1 {
-  margin-left: 1rem;
-}
-
-.mg40 {
-  margin-top: 40px;
-  margin-bottom:40px;
-}
-
-
-/* JY CSS Start*/
-/* Feed 메인피드 */
-/* JY : Feed wrap 추가 */
 .feed-wrap{
  
   width: 350px;
@@ -407,7 +521,9 @@ textarea{
   display: flex;
   align-items: center;
 }
-/* JY : Feed header css */
+/* MAIN FEED END*/
+
+/* FEED HEADER */
 
 .headflex{
   display: flex;
@@ -479,8 +595,10 @@ textarea{
   align-items: center;
   justify-content: center;
 }
+/* FEED HEADER END */
 
-/* JY: 좋아요 글 */
+/* LIKE */
+
 .isLike{
   font-size: var(--font-size-small);
   font-weight: bold;
@@ -510,8 +628,10 @@ textarea{
 .relative {
   position: relative;
 }
+/* LIKE END */
 
-/* JY: Feed end */
+
+
 
 /* JY : Join Id form create */
 .id_form{
@@ -670,7 +790,10 @@ textarea{
 }
 /* JY: Input file type customize end */
 
-/* JY: Footer */
+
+
+/*  FOOTER */
+
 .footer{
   display: flex;
   flex-direction: column;
@@ -680,3 +803,4 @@ textarea{
   width: 100%;
   padding: 30px 0px;
 }
+/*  FOOTER END */

@@ -9,6 +9,8 @@ import UserIcon from "../asserts/images/default_user_icons.png";
 import SamplePhoto from "../asserts/images/food2.jpg";
 // import SamplePhoto2 from "../asserts/images/soup.jpg";
 
+import Carousels from "./Carousels";
+
 const Feed = () => {
   const FeedLists = useSelector((state) => state.Feed.list);
   const loginState = useSelector((state) => state.Feed.isLogin);
@@ -29,84 +31,87 @@ const Feed = () => {
   };
 
   return (
-    <div className="container">
-      {FeedLists.map((item, index) => {
-        // console.log( item.img_url );
-        return (
-          <div className="feed-wrap" key={item.id}>
-            <div className="card_head_wrapper">
-              <div className="headflex">
+    <><Carousels/>
+      <div className="container">
+        
+        {FeedLists.map((item, index) => {
+          // console.log( item.img_url );
+          return (
+            <div className="feed-wrap" key={item.id}>
+              <div className="card_head_wrapper">
+                <div className="headflex">
+                  <img
+                    className="cardimg"
+                    src={item.icon_url ? item.icon_url : UserIcon}
+                    alt=""
+                  />
+                  <div className="card_nickname">{item.nickname}</div>
+                </div>
+                <div className="headflex">
+                  <div>
+                    <span
+                      className="material-icons card_edit"
+                      // onClick={() => {
+                      //   navigate(`/edit`, { state: { item } });
+                      // }}
+                      onClick={ () => {
+                        loginState ? ( navigate(`/edit`, { state: { item } }) ):( window.alert("Login is required."))
+                      }}
+                    >
+                      edit
+                    </span>
+                  </div>
+                  <div>
+                    <span
+                      className="material-icons card_delete"
+                      onClick={() => {
+                        deleteFeedClickEventListener(item.id);
+                      }}
+                    >
+                      delete
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="card_body">
                 <img
-                  className="cardimg"
-                  src={item.icon_url ? item.icon_url : UserIcon}
+                  className="card_img_wrapper"
+                  src={item.img_url !== "null" ? item.img_url : SamplePhoto}
                   alt=""
                 />
-                <div className="card_nickname">{item.nickname}</div>
-              </div>
-              <div className="headflex">
-                <div>
-                  <span
-                    className="material-icons card_edit"
-                    // onClick={() => {
-                    //   navigate(`/edit`, { state: { item } });
-                    // }}
-                    onClick={ () => {
-                       loginState ? ( navigate(`/edit`, { state: { item } }) ):( window.alert("Login is required."))
-                    }}
-                  >
-                    edit
-                  </span>
+                <div className="card_body_title">
+                  <div className="flexleft">
+                    <div className="card_body_place">
+                      {item.storeName ? item.storeName : ""}
+                    </div>
+                    <div className="card_body_header_class">
+                      {item.menu ? item.menu : ""}
+                    </div>
+                  </div>
+                  <div className="flexright">
+                    <span className="material-icons card_body_heart">
+                      favorite_border
+                    </span>
+                    <div className="isLike">좋아요 10개</div>
+                  </div>
                 </div>
-                <div>
-                  <span
-                    className="material-icons card_delete"
-                    onClick={() => {
-                      deleteFeedClickEventListener(item.id);
-                    }}
-                  >
-                    delete
-                  </span>
+
+                <StarDisplay rate={item.stars} />
+
+                <div className="card_body_wrap">
+                  <div className="card_body_content">
+                    {item.address ? item.address : ""}
+                  </div>
+                  <div className="card_body_content ">
+                    "{item.comment ? item.comment : ""}"
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="card_body">
-              <img
-                className="card_img_wrapper"
-                src={item.img_url !== "null" ? item.img_url : SamplePhoto}
-                alt=""
-              />
-              <div className="card_body_title">
-                <div className="flexleft">
-                  <div className="card_body_place">
-                    {item.storeName ? item.storeName : ""}
-                  </div>
-                  <div className="card_body_header_class">
-                    {item.menu ? item.menu : ""}
-                  </div>
-                </div>
-                <div className="flexright">
-                  <span className="material-icons card_body_heart">
-                    favorite_border
-                  </span>
-                  <div className="isLike">좋아요 10개</div>
-                </div>
-              </div>
-
-              <StarDisplay rate={item.stars} />
-
-              <div className="card_body_wrap">
-                <div className="card_body_content">
-                  {item.address ? item.address : ""}
-                </div>
-                <div className="card_body_content ">
-                  "{item.comment ? item.comment : ""}"
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+    </>
     // <div className="container">
     //   <div className="feed-wrap">
     //     <div className="card_head_wrapper">
