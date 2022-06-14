@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import { useDispatch } from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {Stars} from "./../elements/starRating";
+import {Stars} from "./../elements/StarRating";
 import styled from 'styled-components';
 import S3 from 'react-aws-s3';
 import { uploadFeed } from '../redux/modules/feedSlice';
@@ -34,7 +34,7 @@ const Upload = ()=> {
             storeName: _name.current.value,
             address: _address.current.value,
             menu: _menu.current.value,
-            img_url: selectedFile,
+            img_url: array,
             stars: star,
             comment: _comment.current.value, 
             token: access_token }));
@@ -44,8 +44,9 @@ const Upload = ()=> {
     }
 
     // img preview
-    const [file, setFile] = useState("");
+    const [file, setFile] = useState(null);
     const [display,setDisplay] = useState(true);
+    const [array, setArray] = useState([]);
 
     //file uploader
     const inputFile = useRef(null);
@@ -62,26 +63,56 @@ const Upload = ()=> {
         secretAccessKey:process.env.REACT_APP_SECRET,
     }
 
+    const arr = [];
     const handleFileInput = (e) => {
-        setSelectedFile(e.target.files[0]);
-        if (e.target.files[0].name.length > 0) {
-            uploadFile(e.target.files[0]);
-        };
-    }
+        if (e.target.files.length > 0) {
+            setSelectedFile(e.target.files);
+            
+            const length = e.target.files.length;
+            console.log(length)
 
-    const uploadFile = async (file) => {
-        const ReactS3Client = new S3(config);
-        // the name of the file uploaded is used to upload it to S3
-        ReactS3Client
-        .uploadFile(file, file.name)
-        .then((data) => {
-            console.log(data.location);
-            setFile(data.location);
-            setSelectedFile(data.location);
-            setDisplay(false);
-        })
-        .catch(err => console.error(err))
+            for(let i=0; i<length; i++) {
+                const ReactS3Client = new S3(config);
+                // the name of the file uploaded is used to upload it to S3
+                ReactS3Client
+                .uploadFile(e.target.files[i], e.target.files[i].name)
+                .then((data) => {
+                    console.log(data.location);
+                    
+                    arr.push(data.location);
+                    console.log(arr);
+                    setFile(arr[0]);
+                    setArray([...arr]);
+                    
+                    setDisplay(false);
+                })
+                .catch(err => console.error(err))
+            }
+        }
+        
     }
+    console.log(selectedFile);
+    console.log(arr);
+    console.log(array);
+    
+
+    // const uploadFile = (files) =>{
+        
+    // }
+
+    // const uploadFile = async (files) => {
+    //     const ReactS3Client = new S3(config);
+    //     // the name of the file uploaded is used to upload it to S3
+    //     ReactS3Client
+    //     .uploadFile(file, file.name)
+    //     .then((data) => {
+    //         console.log(data.location);
+    //         setFile(data.location);
+    //         setSelectedFile(data.location);
+    //         setDisplay(false);
+    //     })
+    //     .catch(err => console.error(err))
+    // }
 
     
     // VIEW
@@ -89,10 +120,10 @@ const Upload = ()=> {
         <div className="containersm">
             <div className="form_wrapper2">                
                 <Button display = {display} onClick={onButtonClick}><span class="material-icons color-primary topmg20">add_a_photo</span></Button>
-                <input className='file' type="file" ref={inputFile} 
+                <input className='file' type="file" multiple ref={inputFile} 
                 onChange={(e)=>{
-                  handleFileInput(e)
-                  }}
+                handleFileInput(e)
+                }}
                 ></input>
                 
                 <img src = {file} className='showimg'/>
@@ -107,7 +138,7 @@ const Upload = ()=> {
                 <label className="boldtext topmg20">한줄평</label>
                 <textarea ref={_comment}></textarea>
             </div>
-            <div className='btn lg-btn' onClick={() => newpost(selectedFile)}>Post!</div>        
+            <div className='btn lg-btn' onClick={() => newpost()}>Post!</div>        
         </div>
 
     )

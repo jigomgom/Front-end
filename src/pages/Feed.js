@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StarDisplay } from "./../elements/starRating";
+import { StarDisplay } from "./../elements/StarRating";
 import { useSelector, useDispatch } from "react-redux";
 import { getFeedLists, deleteFeedLists } from "../redux/modules/feedSlice";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +20,10 @@ const Feed = () => {
 
   useEffect(() => {
     dispatch(getFeedLists());
+
+    if(FeedLists && FeedLists.length > 0) {
+      console.log(FeedLists[0]);
+    }
   }, []);
 
   const deleteFeedClickEventListener = (id) => {
@@ -29,13 +33,14 @@ const Feed = () => {
       window.alert("Login is required.");
     }
   };
-
+  
+  console.log(FeedLists);
+  
   return (
     <><Carousels/>
       <div className="container">
         
         {FeedLists.map((item, index) => {
-          // console.log( item.img_url );
           return (
             <div className="feed-wrap" key={item.id}>
               <div className="card_head_wrapper">
@@ -76,7 +81,7 @@ const Feed = () => {
               <div className="card_body">
                 <img
                   className="card_img_wrapper"
-                  src={item.img_url !== "null" ? item.img_url : SamplePhoto}
+                  src={item.img_url !== "null" ? item.img_url[0]: SamplePhoto}
                   alt=""
                 />
                 <div className="card_body_title">

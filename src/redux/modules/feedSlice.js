@@ -55,7 +55,8 @@ export const uploadFeed = createAsyncThunk("POST/uploadFeed", async(Feed)=>{
     stars : Feed.stars,
     comment : Feed.comment
   }
-  console.log(FeedData);
+  console.log(FeedData.img_url);
+  console.log(Feed.img_url);
 
   await axios.post(`${SERVER_URL}/store`, FeedData, {headers:{ "Authorization" : Feed.token}})
   .then(response =>{
@@ -110,6 +111,7 @@ const FeedSlice = createSlice({
       // console.log( current( state.list ) );
       // console.log( action.payload );
       state.list = [...action.payload];
+      console.log( state.list );
     },
     [getFeedLists.rejected]: (state, action) => {
       console.log("Get reject");
