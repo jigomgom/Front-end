@@ -40,7 +40,7 @@ const Carousels =() => {
                   <div className="overlay">
                     <div className="tag"> #제주전복<br/> #전복돌솥밥<br/> #버터구이</div>
                   </div>
-                  <div className="heading2">🐟 연미정</div>
+                  <div className="heading2">🍚 연미정</div>
                 </div>
                 <div className="card-wrap">
                   <img src="https://travelview.co.kr/wp-content/uploads/2021/09/image_3658002811630546227717.jpg" ></img>

@@ -366,7 +366,7 @@ textarea{
   width: 100%;
   opacity: 0;
   transition: .5s ease;
-  backdrop-filter: blur(1px);
+  backdrop-filter: blur(2px);
 }
 
 .tag {
