@@ -8,6 +8,8 @@ test1234
 
 import "./styles/App.css";
 import styled from "styled-components";
+import "swiper/css/bundle";
+
 import React from "react";
 
 import { useSelector } from "react-redux";
@@ -23,6 +25,8 @@ import TestUpload from "./components/TestUpload";
 import Upload from "./pages/Upload";
 import Edit from "./pages/Edit";
 import Footer from "./components/Footer";
+
+
 
 function App() {
   React.useEffect(() => {}, []);
