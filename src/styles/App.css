@@ -597,6 +597,11 @@ textarea{
   font-size: 1.7rem;
 }
 
+.card_body_heart_filled{
+  font-size: 1.7rem;
+  color: var(--primary-color);
+}
+
 .card_body_title{
   display: flex;
   justify-content: space-between;

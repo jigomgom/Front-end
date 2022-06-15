@@ -1,7 +1,14 @@
 import React, { useEffect } from "react";
-import { StarDisplay } from "./../elements/StarRating";
+import { StarDisplay } from "../elements/StarRating";
 import { useSelector, useDispatch } from "react-redux";
-import { getFeedLists, deleteFeedLists } from "../redux/modules/feedSlice";
+import {
+  getFeedLists,
+  deleteFeedLists,
+  increaseFeedHeart,
+  decreaseFeedHeart,
+  getLoginFeedLists,
+  getFeedListMore,
+} from "../redux/modules/feedSlice";
 import { useNavigate } from "react-router-dom";
 
 // JY : import Sample Icon
@@ -14,33 +21,68 @@ import Carousels from "./Carousels";
 const Feed = () => {
   const FeedLists = useSelector((state) => state.Feed.list);
   const loginState = useSelector((state) => state.Feed.isLogin);
+  
+  const [isHeart, setIsHeart] = React.useState(false);
+
+  const loginUserUID = localStorage.getItem("user_uid");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getFeedLists());
+    if (FeedLists.length === 1 && loginUserUID === null) {
+      console.log("First load");
+      dispatch(getFeedLists());
+    }
 
-    if(FeedLists && FeedLists.length > 0) {
-      console.log(FeedLists[0]);
+    else if(FeedLists.length === 1 && loginUserUID !== null){
+      console.log("Login First load");
+      dispatch(getLoginFeedLists( loginUserUID ));
+      
+    }
+    else if( FeedLists.length > 1 && loginUserUID !== null ){
+      console.log("Login more Load");
+      dispatch(getFeedListMore( loginUserUID ));
+    }
+    if (FeedLists && FeedLists.length > 0) {
+      // console.log(FeedLists[0]);
     }
   }, []);
 
   const deleteFeedClickEventListener = (id) => {
     if (loginState) {
       dispatch(deleteFeedLists(id));
+    } else {
+      window.alert("Login is required.");
+    }
+  };
+
+  // onClick change heart
+  const onclickIncreaseHeart = (id) => {
+    const access_token = localStorage.getItem("access_token");
+    if( loginState ){
+      dispatch( increaseFeedHeart( { id, token: access_token } ) );
     }else{
       window.alert("Login is required.");
     }
   };
-  
-  console.log(FeedLists);
-  
+  // console.log(FeedLists);
+
+  const onclickDecreaseHeart = ( id ) => {
+    const access_token = localStorage.getItem("access_token");
+    if( loginState ){
+      dispatch(decreaseFeedHeart({ id, token: access_token }));
+    }else{
+      window.alert("Login is required.");
+    }
+  };
+
   return (
-    <><Carousels/>
+    <>
+      <Carousels />
       <div className="container">
-        
         {FeedLists.map((item, index) => {
+          console.log( item.likeCount )
           return (
             <div className="feed-wrap" key={item.id}>
               <div className="card_head_wrapper">
@@ -59,8 +101,10 @@ const Feed = () => {
                       // onClick={() => {
                       //   navigate(`/edit`, { state: { item } });
                       // }}
-                      onClick={ () => {
-                        loginState ? ( navigate(`/edit`, { state: { item } }) ):( window.alert("Login is required."))
+                      onClick={() => {
+                        loginState
+                          ? navigate(`/edit`, { state: { item } })
+                          : window.alert("Login is required.");
                       }}
                     >
                       edit
@@ -81,7 +125,11 @@ const Feed = () => {
               <div className="card_body">
                 <img
                   className="card_img_wrapper"
-                  src={item.img_url !== "null" ? item.img_url[0]: SamplePhoto}
+                  src={
+                    item.img_url !== "null"
+                      ? item.img_url && item.img_url[0]
+                      : SamplePhoto
+                  }
                   alt=""
                 />
                 <div className="card_body_title">
@@ -94,10 +142,37 @@ const Feed = () => {
                     </div>
                   </div>
                   <div className="flexright">
-                    <span className="material-icons card_body_heart">
+                    { item.like ? (<span
+                      className="material-icons card_body_heart_filled"
+                      onClick={() => {
+                        onclickDecreaseHeart(item.id);
+                      }}
+                    >favorite</span>): (<span
+                      className="material-icons card_body_heart"
+                      onClick={() => {
+                        onclickIncreaseHeart(item.id);
+                      }}
+                    >
+                      favorite_border
+                    </span>)}
+                    {/* <span
+                      className="material-icons card_body_heart"
+                      onClick={() => {
+                        onclickIncreaseHeart(item.id);
+                      }}
+                    >
                       favorite_border
                     </span>
-                    <div className="isLike">좋아요 10개</div>
+                    <span
+                      className="material-icons card_body_heart_filled"
+                      style={{ display: isHeart ? "inline-block" : "none" }}
+                      onClick={() => {
+                        onclickDecreaseHeart(item.id);
+                      }}
+                    >
+                      favorite
+                    </span> */}
+                    <div className="isLike">좋아요 {item.likeCount ? item.likeCount : 0}개</div>
                   </div>
                 </div>
 

@@ -82,8 +82,12 @@ const Login = ( ) => {
           setPasswordState(true);
           localStorage.setItem("access_token", response.headers.authorization);
           localStorage.setItem( "loginState", true );
+          localStorage.setItem( "usericon", response.data.userInfo.icon_url );
+          localStorage.setItem( "user_uid", response.data.userInfo.id);
+          localStorage.setItem( "user_nick", response.data.userInfo.nickname );
           const CurrentLogin = localStorage.getItem("loginState");
-          dispatch( changeLoginState( CurrentLogin ) );
+
+          dispatch( changeLoginState( { loginState : CurrentLogin, userinfo: response.data.userInfo } ) );
           navigate("/");
         } else {
           if (response.data.message === "존재하지 않는 아이디입니다.") {

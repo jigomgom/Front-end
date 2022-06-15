@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import { useDispatch } from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {Stars} from "./../elements/StarRating";
+import {Stars} from "../elements/StarRating"
 import styled from 'styled-components';
 import S3 from 'react-aws-s3';
 import { uploadFeed } from '../redux/modules/feedSlice';

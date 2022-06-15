@@ -5,22 +5,34 @@ import { changeLoginState } from "../redux/modules/feedSlice";
 import styled from "styled-components";
 
 const Navbar = () => {
-  const loginState = useSelector((state) => state.Feed.isLogin);
+  let loginState = useSelector((state) => state.Feed.isLogin);
+  
+  if( loginState && loginState.length > 0 ){
+    loginState = JSON.parse( loginState );
+  }
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
     // Update, re-render, 새로고침이 되도 localStorage의 상태를 보고 로그인 상태를 유지하자.
-    dispatch(changeLoginState(localStorage.getItem("loginState")));
+    const currentLogin = localStorage.getItem("loginState");
+    dispatch(changeLoginState({ loginState: currentLogin}) );
   }, []);
 
   const logout = () => {
     // console.log(localStorage.getItem("access_token"));
     localStorage.removeItem("access_token");
     localStorage.setItem("loginState", false);
+    
     const currentLogin = localStorage.getItem("loginState");
-    dispatch(changeLoginState(currentLogin));
+    
+    dispatch(changeLoginState( { loginState: currentLogin }));
 
-    // console.log(localStorage.getItem("access_token"));
+    localStorage.removeItem("loginState");
+    localStorage.removeItem("user_uid");
+    localStorage.removeItem("usericon");
+    localStorage.removeItem("user_nick");
+    localStorage.clear();
   };
 
   const navigate = useNavigate();

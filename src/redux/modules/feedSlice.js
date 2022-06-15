@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 
 import axios from "axios";
+import Feed from "../../pages/Feed";
 
 const SERVER_URL = "http://13.124.223.73/api";
 
@@ -10,6 +11,25 @@ export const getFeedLists = createAsyncThunk("GET/getFeedLists", async () => {
     .get(`${SERVER_URL}/stores`, {})
     .then((response) => response.data.storeList);
 });
+// 로그인 시 Feed 가져오기
+export const getLoginFeedLists = createAsyncThunk(
+  "GET/getLoginFeedLists",
+  async (userid) => {
+    return await axios
+      .get(`${SERVER_URL}/stores/${userid}`, {})
+      .then((response) => response.data.storeList);
+  }
+);
+
+// 무한 스크롤을 위해 DB에 다시 요청하기
+export const getFeedListMore = createAsyncThunk(
+  "GET/getFeedListsMore",
+  async () => {
+    return await axios
+      .get(`${SERVER_URL}/stores`, {})
+      .then((response) => response.data.storeList);
+  }
+);
 
 // Feed에 ID 값으로 삭제하기
 export const deleteFeedLists = createAsyncThunk(
@@ -23,15 +43,15 @@ export const deleteFeedLists = createAsyncThunk(
       })
       .then((response) => {
         if (response.data.response) {
-            // response가 true일 때, id 값을 넘기려고 했는데 계속 오류가 생겼습니다.
-            // 외부에 변수를 선언해주고 return 하는 방식을 사용했습니다.
-            // 몇가지 문서를 찾아보니 callback 함수를 사용하라고 하는데 방법을 잘 모르겠네요.
+          // response가 true일 때, id 값을 넘기려고 했는데 계속 오류가 생겼습니다.
+          // 외부에 변수를 선언해주고 return 하는 방식을 사용했습니다.
+          // 몇가지 문서를 찾아보니 callback 함수를 사용하라고 하는데 방법을 잘 모르겠네요.
           result = true;
         } else {
-            console.log( response );
+          console.log(response);
           if (response.data.message === "본인의 게시글이 아닙니다.") {
             window.alert("It's not your feed");
-          }else if( response.data.message === "로그인이 필요합니다." ){
+          } else if (response.data.message === "로그인이 필요합니다.") {
             window.alert("Login is required.");
           }
         }
@@ -46,50 +66,108 @@ export const deleteFeedLists = createAsyncThunk(
 );
 
 // Feed 추가하기 -> uploadFeedFB
-export const uploadFeed = createAsyncThunk("POST/uploadFeed", async(Feed)=>{
+export const uploadFeed = createAsyncThunk("POST/uploadFeed", async (Feed) => {
   const FeedData = {
     storeName: Feed.storeName,
-    address : Feed.address,
-    menu : Feed.menu,
+    address: Feed.address,
+    menu: Feed.menu,
     img_url: Feed.img_url,
-    stars : Feed.stars,
-    comment : Feed.comment
-  }
-  console.log(FeedData.img_url);
-  console.log(Feed.img_url);
+    stars: Feed.stars,
+    comment: Feed.comment,
+  };
+  console.log(FeedData);
 
-  await axios.post(`${SERVER_URL}/store`, FeedData, {headers:{ "Authorization" : Feed.token}})
-  .then(response =>{
-    console.log(response)
-  })
+  await axios
+    .post(`${SERVER_URL}/store`, FeedData, {
+      headers: { Authorization: Feed.token },
+    })
+    .then((response) => {
+      console.log(response);
+    });
 
   return FeedData;
 });
 
 // Feed 수정하기 -> editFeedFB
-export const editFeed = createAsyncThunk("PUT/editFeed", async(Feed) => {
+export const editFeed = createAsyncThunk("PUT/editFeed", async (Feed) => {
   const FeedData2 = {
     storeName: Feed.storeName,
-    address : Feed.address,
-    menu : Feed.menu,
+    address: Feed.address,
+    menu: Feed.menu,
     img_url: Feed.img_url,
-    stars : Feed.stars,
-    comment : Feed.comment
-  }
+    stars: Feed.stars,
+    comment: Feed.comment,
+  };
   console.log(FeedData2);
 
-  await axios.put(`${SERVER_URL}/store/${Feed.id}`, FeedData2, {headers:{ "Authorization" : Feed.token}})
-  .then(response =>{
-    console.log(response)
-  })
-  
+  await axios
+    .put(`${SERVER_URL}/store/${Feed.id}`, FeedData2, {
+      headers: { Authorization: Feed.token },
+    })
+    .then((response) => {
+      console.log(response);
+    });
+
   return Feed;
 });
+
+// Feed Heart increate
+export const increaseFeedHeart = createAsyncThunk(
+  "POST/increaseFeedHeart",
+  async (Feed) => {
+    let result;
+    let LikeCnt = 0;
+    await axios
+      .post(
+        `${SERVER_URL}/like/${Feed.id}`,
+        {},
+        { headers: { Authorization: `${Feed.token}` } }
+      )
+      .then((res) => {
+        if (res.data.response) {
+          console.log( res.data );
+          result = true;
+          LikeCnt = res.data.likeCount;
+        }
+      })
+      .catch((e) => console.log(e));
+    if (result) {
+      Feed["LikeCnt"] = LikeCnt;
+      console.log( Feed );
+      return Feed;
+    }
+  }
+);
+
+// Feed Heart decrease
+export const decreaseFeedHeart = createAsyncThunk(
+  "DELETE/editFeed",
+  async (Feed) => {
+    console.log(Feed);
+    await axios
+      .delete(`${SERVER_URL}/unlike/${Feed.id}`, {
+        headers: { Authorization: `${Feed.token}` },
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((e) => console.log(e));
+
+    return Feed;
+  }
+);
 
 const FeedSlice = createSlice({
   name: "Feed",
   initialState: {
     isLogin: false,
+
+    userinfo: {
+      UserId: 0,
+      nickname: "",
+      icon_url: "",
+    },
+
     list: [{}],
   },
   reducers: {
@@ -99,28 +177,52 @@ const FeedSlice = createSlice({
       // 그냥 true false를 localStorage에 넣으면 String으로 변환됩니다.
       // JSON.parse를 쓸때는 true, false 값만 들어가게 하고
       // TRUE, FALSE 일 때는 변환을 안하니 주의합니다.
-      const loginState = JSON.parse(action.payload);
+
+      const loginState = action.payload?.loginState;
+      const userInfo_ID = action.payload?.userinfo?.id;
+      const userInfo_ICON = action.payload?.userinfo?.icon_url;
+      const userInfo_NICK = action.payload?.userinfo?.nickname;
+
+      if (loginState && loginState.length > 0) {
+        state.isLogin = JSON.parse(loginState);
+      }
+
       state.isLogin = loginState;
+      state.userinfo.UserId = userInfo_ID;
+      state.userinfo.icon_url = userInfo_ICON;
+      state.userinfo.nickname = userInfo_NICK;
     },
   },
   extraReducers: {
     // middlewares
+
     //getFeedLists
     [getFeedLists.fulfilled]: (state, action) => {
       console.log("Get fullfill");
-      // console.log( current( state.list ) );
-      // console.log( action.payload );
       state.list = [...action.payload];
-      console.log( state.list );
     },
     [getFeedLists.rejected]: (state, action) => {
       console.log("Get reject");
     },
-    
+    // getLoginFeedLists 로그인하자마자 처음 로드하는 곳입니다.
+    [getLoginFeedLists.fulfilled]: (state, action) => {
+      console.log("Login get fulfill");
+      state.list = [...action.payload];
+    },
+    [getLoginFeedLists.rejected]: (state, action) => {
+      console.log("Login get reject");
+    },
+
+    // getFeedListMore
+    [getFeedListMore.fulfilled]: (state, action) => {
+      console.log("Get more list fulfill");
+      // console.log(action.payload);
+    },
+
     //uploadFeed
     [uploadFeed.fulfilled]: (state, action) => {
-        console.log("Upload fullfill");
-        state.list = [...current(state.list), action.payload];
+      console.log("Upload fullfill");
+      state.list = [...current(state.list), action.payload];
     },
     [uploadFeed.rejected]: (state, action) => {
       console.log("Upload reject");
@@ -129,12 +231,14 @@ const FeedSlice = createSlice({
     //editFeed
     [editFeed.fulfilled]: (state, action) => {
       console.log("Edit fullfill");
-      console.log(action.payload);
-      const new_list = current(state.list).filter((item) => item.id !== action.payload);
+      // console.log(action.payload);
+      const new_list = current(state.list).filter(
+        (item) => item.id !== action.payload
+      );
       console.log(new_list);
       state.list = new_list;
     },
-    
+
     [editFeed.rejected]: (state, action) => {
       console.log("Edit reject");
     },
@@ -152,9 +256,40 @@ const FeedSlice = createSlice({
     [deleteFeedLists.rejected]: (state, action) => {
       console.log("Delete reject");
     },
-  } 
-    
+
+    // Update Herat State
+    [increaseFeedHeart.fulfilled]: (state, action) => {
+      console.log("increase heart fulfill");
+      const lists = current( state.list ).map( ( item, index ) => {
+        // console.log( item );
+        if( item.id === action.payload.id ){
+          return { ...item, like: true, likeCount : action.payload.LikeCnt}
+        }else{
+          return item;
+        }
+      });
+      state.list = lists;
+    },
+    [increaseFeedHeart.rejected]: (state, action) => {
+      console.log("increase heart reject");
+    },
+    [decreaseFeedHeart.fulfilled]: (state, action) => {
+      console.log("increase heart fulfill");
+      const lists = current( state.list ).map( ( item, index ) => {
+        console.log( item );
+        if( item.id === action.payload.id ){
+          return { ...item, like: false, likeCount : action.payload.LikeCnt}
+        }else{
+          return item;
+        }
+      });
+      state.list = lists;
+    },
+    [decreaseFeedHeart.rejected]: (state, action) => {
+      console.log("Decrease reject");
+    },
+  },
 });
 
-export const { changeLoginState, deleteFeedState } = FeedSlice.actions;
+export const { changeLoginState } = FeedSlice.actions;
 export default FeedSlice.reducer;
