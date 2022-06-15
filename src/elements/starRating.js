@@ -22,11 +22,17 @@ export const Stars = ({star, getData}) => {
 };
 
 export const StarDisplay = (props) => {
-  
-  // console.log(props.rate)
   return (
     <div className='rating'>
       <Rating ratingValue={props.rate} fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}  size="22px" readonly={true} /* Available Props */ />
+    </div>
+  )
+};
+
+export const StarDisplay2 = (props) => {
+  return (
+    <div>
+      <Rating ratingValue={props.rate} fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}  size="30px" readonly={true} /* Available Props */ />
     </div>
   )
 };

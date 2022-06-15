@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
+
+import React, { useEffect, useRef, useState } from "react";
 import { StarDisplay } from "./../elements/StarRating";
 import { useSelector, useDispatch } from "react-redux";
 import { getFeedLists, deleteFeedLists } from "../redux/modules/feedSlice";
 import { useNavigate } from "react-router-dom";
 
-// JY : import Sample Icon
 import UserIcon from "../asserts/images/default_user_icons.png";
 import SamplePhoto from "../asserts/images/food2.jpg";
 // import SamplePhoto2 from "../asserts/images/soup.jpg";
 
 import Carousels from "./Carousels";
+import Detail from "./Detail";
 
 const Feed = () => {
   const FeedLists = useSelector((state) => state.Feed.list);
@@ -22,10 +23,11 @@ const Feed = () => {
     dispatch(getFeedLists());
 
     if(FeedLists && FeedLists.length > 0) {
-      console.log(FeedLists[0]);
+      console.log(FeedLists[0].img_url);
     }
   }, []);
 
+  // Delete event handlers
   const deleteFeedClickEventListener = (id) => {
     if (loginState) {
       dispatch(deleteFeedLists(id));
@@ -36,6 +38,16 @@ const Feed = () => {
   
   console.log(FeedLists);
   
+  //Modal open/close
+  let [modal, setModal] = useState(false);
+
+  const openModal = () => {
+    setModal(true);
+  };
+  const closeModal = () => {
+    setModal(false);
+  };
+
   return (
     <><Carousels/>
       <div className="container">
@@ -79,11 +91,19 @@ const Feed = () => {
                 </div>
               </div>
               <div className="card_body">
-                <img
-                  className="card_img_wrapper"
-                  src={item.img_url !== "null" ? item.img_url[0]: SamplePhoto}
-                  alt=""
-                />
+                <div className="card-wrap2">
+                    <img
+                    className="card_img_wrapper"
+                    src={item.img_url !== "null" ? item.img_url && item.img_url[0]: SamplePhoto}
+                    alt=""
+                  />
+                  <div className="overlay"
+                   onClick={()=>{
+                    navigate(`/detail`, { state: {item} })
+                  }}>
+                    <div className="feedimgtxt">자세히보기</div>
+                  </div>
+                </div>
                 <div className="card_body_title">
                   <div className="flexleft">
                     <div className="card_body_place">
@@ -107,6 +127,7 @@ const Feed = () => {
                   <div className="card_body_content">
                     {item.address ? item.address : ""}
                   </div>
+                  
                   <div className="card_body_content ">
                     "{item.comment ? item.comment : ""}"
                   </div>

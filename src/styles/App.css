@@ -15,7 +15,8 @@
   --delete-color: #ff2626;
   --lighter-color: #fee9cd;
 
-  --container-width: 1200px;
+  --container-width: 1150px;
+  --container-width-1100: 950px;
   --navbar-width: 1100px;
   /* JY : add color value*/
   --feed-background-color: rgb(255, 255, 255);
@@ -113,6 +114,7 @@
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 20px;
+  gap: 5px;
   justify-content: space-around;
 }
 
@@ -282,29 +284,6 @@ textarea{
   align-self: center;
 }
 
-.card_img_wrapper{
- height: 270px;
- margin: 0px;
- width: 100%;
- object-fit: cover;
- overflow: hidden;
-}
-
-.card_img_wrapper2{
-  max-height: 400px;
-  margin: 10px;
-  width: 98%;
-  object-fit: cover;
-  overflow: hidden;
-  margin: 10px auto;
- }
-
-.cardimg {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  margin-right: 1rem;
-}
 /* NAVBAR END */
 
 /* CAROUSELS */
@@ -340,7 +319,7 @@ textarea{
 }
 
 .card-wrap {
-  width: 370px;
+  width: 383px;
   height: 300px;
   position: relative;
 }
@@ -421,6 +400,45 @@ textarea{
   width: 30%;
 }
 
+@media (max-width: 1260px) {
+  
+.card-wrap {
+  width: 300px;
+  height: 300px;
+  position: relative;
+}
+}
+
+@media (max-width: 1100px) {
+  
+  .feed-wrap {
+    width: 420px !important;
+  }
+  .card-wrap {
+    width: 270px;
+    height: 270px;
+    position: relative;
+  }
+  .container {
+    max-width: var(--container-width-1100);
+  }
+ 
+  }
+
+@media (max-width: 920px) {
+  .carouselbox {
+    flex-direction: column !important;
+  }
+  .card-wrap {
+    width: 400px;
+    height: 300px;
+    position: relative;
+  }
+  .feed-wrap {
+    width: 400px !important;
+  }
+  }
+
 
 /* CAROUSELS END */
 
@@ -455,6 +473,61 @@ textarea{
 /* LOGIN , JOIN END */
 
 
+/* DETAIL */
+
+.detail-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 400px;
+  margin: 50px auto;
+  align-items: center;
+}
+
+.slide-img-wrap {
+  width: 400px;
+  height: 300px;
+  padding-bottom: 20px;
+}
+.detail-head {
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+
+.detail-box {
+  margin: 0px 10px 20px 10px;
+  width: 100%;
+}
+.detail-headflex {
+  margin: 25px 10px 10px 10px;
+  display: flex;
+  align-items: center;
+}
+
+.map {
+ width: 100%;
+ height: 300px;
+ margin: 10px auto;
+}
+
+.menu {
+  font-size: 1rem;
+  margin-left: 0.4rem;
+  color: grey;
+  font-weight: 400;
+}
+.detail-content{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  font-size: 1.2rem !important;
+  margin-left: 5px;
+}
+
+
+/* DETAIL END */
+
 /* UPLOAD */
 
 .form_wrapper2 {
@@ -484,6 +557,10 @@ textarea{
   color: var(--line-color);
   font-size: 1rem;
   font-style: italic;
+}
+
+.topmg5 {
+  margin-top:5px;
 }
 
 .topmg20 {
@@ -518,8 +595,8 @@ textarea{
   border : 2px solid rgba(7, 5, 5, 0.14);
   border-radius: 10px;
   background-color: var(--feed-background-color);
-  margin-top: 20px;
-  margin-right: 17px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding-bottom: 15px;
 }
 
@@ -540,6 +617,79 @@ textarea{
   display: flex;
   align-items: center;
 }
+
+
+.card_img_wrapper{
+  height: 270px;
+  margin: 0px;
+  width: 100%;
+  object-fit: cover;
+  overflow: hidden;
+  cursor: pointer;
+ }
+ 
+ .card_img_wrapper:hover caption {
+  opacity: 1;
+ }
+ 
+ .card_img_wrapper2{
+   max-height: 400px;
+   margin: 10px;
+   width: 98%;
+   object-fit: cover;
+   overflow: hidden;
+   margin: 10px auto;
+  }
+ 
+ .cardimg {
+   width: 45px;
+   height: 45px;
+   border-radius: 50%;
+   margin-right: 1rem;
+ }
+
+ .card-wrap2 {
+  height: 270px;
+  margin: 0px;
+  width: 100%;
+  position: relative;
+}
+
+.card-wrap2>img {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.card-wrap2:hover .overlay {
+  opacity: 1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  color: white;
+  transition: .5s ease;
+  backdrop-filter: none;
+}
+
+.feedimgtxt {
+  color: white;
+    font-size: 20px;
+    line-height: 33px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+} 
+
+
 /* MAIN FEED END*/
 
 /* FEED HEADER */

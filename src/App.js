@@ -25,13 +25,14 @@ import TestUpload from "./components/TestUpload";
 import Upload from "./pages/Upload";
 import Edit from "./pages/Edit";
 import Footer from "./components/Footer";
-
+import Detail from "./pages/Detail";
 
 
 function App() {
   React.useEffect(() => {}, []);
   const navigate = useNavigate();
   const loginState = useSelector( state => state.Feed.isLogin);
+
   // console.log( loginState );
   // const testUploadClick = async () => {
   //   const Token = localStorage.getItem("access_token");
@@ -61,6 +62,8 @@ function App() {
       <div className="background">
         <Routes>
           <Route path="/" element={<Feed />}></Route>
+            
+          <Route path="/detail" element={<Detail />}></Route>
           <Route path="/upload" element={<Upload />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/join" element={<Signup />}></Route>
