@@ -80,7 +80,7 @@ function App() {
           loginState ? ( navigate("/upload") ) : ( window.alert("Login is required.") )
         }}
       >
-        <span class="material-icons">add</span>
+        <span className="material-icons">add</span>
       </Up>
 
       <Up
@@ -88,7 +88,7 @@ function App() {
           window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
         }}
       >
-        <span class="material-icons">arrow_upward</span>
+        <span className="material-icons">arrow_upward</span>
       </Up>
     </div>
   );
