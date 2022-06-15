@@ -80,7 +80,7 @@ function App() {
           loginState ? ( navigate("/upload") ) : ( window.alert("Login is required.") )
         }}
       >
-        +
+        <span class="material-icons">add</span>
       </Up>
 
       <Up
@@ -88,7 +88,7 @@ function App() {
           window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
         }}
       >
-        ⇧
+        <span class="material-icons">arrow_upward</span>
       </Up>
     </div>
   );
@@ -101,16 +101,21 @@ const Up = styled.div`
   width: 50px;
   border-radius: 50%;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 25px;
+  right: 25px;
   align-items: center;
   justify-content: center;
-  color: #fff;
   background: var(--line-color);
-  font-size: 2rem;
-  font-weight: 800;
   cursor: pointer;
   &:hover {
     background-color: var(--highlight-color);
+  }
+  & > span {
+    color: #fff;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+  & > span:hover {
+    color: #fff;
   }
 `;

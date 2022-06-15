@@ -23,7 +23,7 @@ const Detail = (props) => {
   console.log(imgArr);
 
   //MAP
-
+  console.log(item.address)
   const container = useRef(null);
   useEffect(() => {
 
@@ -35,25 +35,23 @@ const Detail = (props) => {
     const map = new kakao.maps.Map(container.current, options); //지도 생성 및 객체 리턴
     let geocoder = new kakao.maps.services.Geocoder();
     console.log(geocoder)
-    geocoder.addressSearch(`제주특별자치도 제주시 첨단로 242`, function(result, status) {
+    
+    geocoder.addressSearch(`${item.address}`, function(result, status) {
       if (status === kakao.maps.services.Status.OK) {
+        console.log(result)
         let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
         
         const marker = new kakao.maps.Marker({
         map: map,
         position: coords
         });
+        map.setCenter(coords);
       }
       
     })
 
   }, []);
-
-  
-
-  
-  
-  
+ 
   
   return(
       <div className="detail-container">
@@ -65,7 +63,7 @@ const Detail = (props) => {
         //   clickable: true,
         // }}
         autoplay={{
-          delay: 4000,
+          delay: 3000,
           disableOnInteraction: false,
         }}
         modules={[Pagination, Autoplay]}

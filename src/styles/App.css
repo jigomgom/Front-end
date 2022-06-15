@@ -589,7 +589,7 @@ textarea{
 
 .feed-wrap{
  
-  width: 350px;
+  width: 360px;
   height: 50vh;
   min-height: 450px;
   border : 2px solid rgba(7, 5, 5, 0.14);
@@ -597,7 +597,7 @@ textarea{
   background-color: var(--feed-background-color);
   margin-top: 10px;
   margin-bottom: 10px;
-  padding-bottom: 15px;
+  padding-bottom: 7px;
 }
 
 .card_head_wrapper {
@@ -757,9 +757,7 @@ textarea{
   justify-content: space-between;
   align-items: center;
   width: 90%;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 5px;
+  margin: 5px 20px 5px 20px;
   font-size: 1rem;
 }
 
@@ -782,7 +780,7 @@ textarea{
 .card_body_place{
   margin-top: 5px;
   margin-right: 10px;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: 600;
 }
 
