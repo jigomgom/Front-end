@@ -44,7 +44,7 @@ const Edit = ()=> {
             storeName: _name.current.value,
             address: _address.current.value,
             menu: _menu.current.value,
-            img_url: selectedFile,
+            img_url: array,
             stars: star,
             comment: _comment.current.value, 
             token: access_token }));
@@ -54,8 +54,9 @@ const Edit = ()=> {
     };
 
     // img preview
-    const [file, setFile] = useState(item.img_url);
+    const [file, setFile] = useState(item.img_url[0]);
     const [display,setDisplay] = useState(true);
+    const [array, setArray] = useState([]);
 
     //choose new img
     const inputFile = useRef(null);
@@ -63,7 +64,7 @@ const Edit = ()=> {
         inputFile.current.click(); 
     };
     //file upload to storage & show preview
-    const [selectedFile, setSelectedFile] = useState(item.img_url);
+    const [selectedFile, setSelectedFile] = useState(item.img_url[0]);
 
     const config = {
         bucketName:process.env.REACT_APP_BUCKET_NAME,
@@ -72,34 +73,41 @@ const Edit = ()=> {
         secretAccessKey:process.env.REACT_APP_SECRET,
     }
 
+    const arr = [];
     const handleFileInput = (e) => {
-        setSelectedFile(e.target.files[0]);
-        if (e.target.files[0].name.length > 0) {
-            uploadFile(e.target.files[0]);
-        };
-    }
+        if (e.target.files.length > 0) {
+            setSelectedFile(e.target.files);
+            
+            const length = e.target.files.length;
+            console.log(length)
 
-    const uploadFile = async (file) => {
-        const ReactS3Client = new S3(config);
-        // the name of the file uploaded is used to upload it to S3
-        ReactS3Client
-        .uploadFile(file, file.name)
-        .then((data) => {
-            console.log(data.location);
-            setFile(data.location);
-            setSelectedFile(data.location);
-            setDisplay(false);
-        })
-        .catch(err => console.error(err))
+            for(let i=0; i<length; i++) {
+                const ReactS3Client = new S3(config);
+                // the name of the file uploaded is used to upload it to S3
+                ReactS3Client
+                .uploadFile(e.target.files[i], e.target.files[i].name)
+                .then((data) => {
+                    console.log(data.location);
+                    
+                    arr.push(data.location);
+                    console.log(arr);
+                    setFile(arr[0]);
+                    setArray([...arr]);
+                    
+                    setDisplay(false);
+                })
+                .catch(err => console.error(err))
+            }
+        }
+        
     }
-
     
     // VIEW
     return (
         <div className="containersm">
             <div className="form_wrapper2">                
                 <Button display = {display} onClick={onButtonClick}><span class="material-icons color-primary topmg20">add_a_photo</span></Button>
-                <input className='file' type="file" ref={inputFile} 
+                <input className='file' type="file" multiple ref={inputFile} 
                 onChange={(e)=>{
                   handleFileInput(e)
                   }}
@@ -117,7 +125,7 @@ const Edit = ()=> {
                 <label className="boldtext topmg20">한줄평</label>
                 <textarea ref={_comment} defaultValue={item.comment}></textarea>
             </div>
-            <div className='btn lg-btn' onClick={() => editAction(selectedFile)}>Edit</div>        
+            <div className='btn lg-btn' onClick={() => editAction()}>Edit</div>        
         </div>
 
     )
