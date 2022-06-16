@@ -95,25 +95,6 @@ const Upload = ()=> {
     console.log(arr);
     console.log(array);
     
-
-    // const uploadFile = (files) =>{
-        
-    // }
-
-    // const uploadFile = async (files) => {
-    //     const ReactS3Client = new S3(config);
-    //     // the name of the file uploaded is used to upload it to S3
-    //     ReactS3Client
-    //     .uploadFile(file, file.name)
-    //     .then((data) => {
-    //         console.log(data.location);
-    //         setFile(data.location);
-    //         setSelectedFile(data.location);
-    //         setDisplay(false);
-    //     })
-    //     .catch(err => console.error(err))
-    // }
-
     
     // VIEW
     return (
