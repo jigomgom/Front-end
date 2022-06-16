@@ -172,7 +172,8 @@ const Login = ( ) => {
         Login
       </div>
       <p className="primary-color">if you are not a member</p>
-      <div className="btn lg-btn boldtext">Join</div>
+      <div className="btn lg-btn boldtext" onClick={()=>{
+        navigate('/join')}}>Join</div>
     </div>
   );
 };

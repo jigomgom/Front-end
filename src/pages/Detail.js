@@ -16,6 +16,8 @@ import { Pagination, Navigation, Autoplay } from "swiper";
 const { kakao } = window;
 
 const Detail = (props) => {
+  const navigate = useNavigate();
+
   // const { open, close, item } = props;
   const location = useLocation();
   const item = location.state.item;
@@ -113,11 +115,11 @@ const Detail = (props) => {
         "{item.comment ? item.comment : ""}"
         </div>
       </div>
-        
-      </div>
 
-
+      <div className="btn lg-btn boldtext mg40" onClick={()=>{
+        navigate('/')}}>🏠</div>
         
+    </div>
 
   )
 }
