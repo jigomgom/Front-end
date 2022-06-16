@@ -141,27 +141,28 @@
 - 포스트를 작성한 사용자만 수정 및 삭제 허용
 - 로그인 시 포스트를 작성할 수 있도록 허용
     
-    [](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/45aa9a12-109c-46aa-bd62-07a4a4caf272/Main_view.png)
+ ![Main view](https://user-images.githubusercontent.com/107230384/173980499-d0018dd6-7689-4842-a2a7-d62bb9207cc0.png)
     
 
 - 로그아웃 Navbaer
 
-![Group 17.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/873cb8b7-33f4-4957-98ee-43f198c68f5f/Group_17.jpg)
+![Group 17](https://user-images.githubusercontent.com/107230384/173980788-728eff53-2d5a-4b50-96d8-759341c380c6.jpg)
 
 ### 회원가입
 
-[](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/03a8d821-489e-405a-a382-91f78c8bf2ba/Sing_up_page.png)
+![Sing up page](https://user-images.githubusercontent.com/107230384/173980540-8e1e44b0-1348-4b52-b69d-76fcdba445c6.png)
 
 ### 로그인
 
-[](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c6fccec0-edd9-4f83-89a2-fc3dce58139f/Login_page.png)
+![Login page](https://user-images.githubusercontent.com/107230384/173980583-e6094194-642c-410d-953f-82e89c5b4845.png)
 
 ### 맛집 게시글 작성하기
 
-[](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/23d0a804-2178-4054-85d0-085f82964da1/Upload_page.png)
+![Upload page](https://user-images.githubusercontent.com/107230384/173980614-548bdce3-7c7e-412a-ae6e-95870be1e067.png)
+
 
 ### 맛집 게시글 수정하기
-[](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/252fc8ff-e026-4d1d-9266-89c9b57e5340/Edit_page.png)
+![Edit page](https://user-images.githubusercontent.com/107230384/173980654-b1f602d3-7c08-4590-bbc1-1444498e6a38.png)
 
 # 🍊 API
 
