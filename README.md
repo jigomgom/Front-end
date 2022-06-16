@@ -170,9 +170,19 @@
 ### 맛집 게시글 수정하기
 ![Edit page](https://user-images.githubusercontent.com/107230384/173980654-b1f602d3-7c08-4590-bbc1-1444498e6a38.png)
 
+
+
 # 🍊 API
 
 ---
+<details>
+<summary>🐳 ERD</summary>
+<div markdown="1">
+
+![ERD](https://user-images.githubusercontent.com/95006095/173968568-ad73caa7-32f4-454c-996e-c0c984765bc1.png)
+
+</div>
+</details>  
 
 [최종 API](https://www.notion.so/a720cff38f7249d392bdf2c5dc957498)
 
