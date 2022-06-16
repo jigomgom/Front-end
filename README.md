@@ -141,7 +141,7 @@
 - 포스트를 작성한 사용자만 수정 및 삭제 허용
 - 로그인 시 포스트를 작성할 수 있도록 허용
     
-    ![Main view.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/45aa9a12-109c-46aa-bd62-07a4a4caf272/Main_view.png)
+    [](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/45aa9a12-109c-46aa-bd62-07a4a4caf272/Main_view.png)
     
 
 - 로그아웃 Navbaer
@@ -150,19 +150,18 @@
 
 ### 회원가입
 
-![Sing up page.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/03a8d821-489e-405a-a382-91f78c8bf2ba/Sing_up_page.png)
+[](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/03a8d821-489e-405a-a382-91f78c8bf2ba/Sing_up_page.png)
 
 ### 로그인
 
-![Login page.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c6fccec0-edd9-4f83-89a2-fc3dce58139f/Login_page.png)
+[](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c6fccec0-edd9-4f83-89a2-fc3dce58139f/Login_page.png)
 
 ### 맛집 게시글 작성하기
 
-![Upload page.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/23d0a804-2178-4054-85d0-085f82964da1/Upload_page.png)
+[](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/23d0a804-2178-4054-85d0-085f82964da1/Upload_page.png)
 
 ### 맛집 게시글 수정하기
-
-![Edit page.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/252fc8ff-e026-4d1d-9266-89c9b57e5340/Edit_page.png)
+[](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/252fc8ff-e026-4d1d-9266-89c9b57e5340/Edit_page.png)
 
 # 🍊 API
 
@@ -176,6 +175,6 @@
 
 - 한 주간 잘 부탁드립니다.
 
-# 🥭**[구글 대시 보드](https://docs.google.com/spreadsheets/d/1OCmYlh12oT2aN8fBhAJzl1Qdd_kL_rN8Gcpu1skV7tE/edit#gid=933892082)**로 바로 가기
+# 🥭[구글 대시 보드](https://docs.google.com/spreadsheets/d/1OCmYlh12oT2aN8fBhAJzl1Qdd_kL_rN8Gcpu1skV7tE/edit#gid=933892082)로 바로 가기
 
 ---
