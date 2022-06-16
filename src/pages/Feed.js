@@ -56,16 +56,21 @@ const Feed = () => {
   }, [inView]);
 
   // Delete event handlers
-  const deleteFeedClickEventListener = (id) => {
+  const deleteFeedClickEventListener = (id, nickname) => {
+    const userNick = localStorage.getItem("user_nick");
     if (loginState) {
+      if (nickname === userNick) {
       dispatch(deleteFeedLists(id));
+    }else{
+      window.alert("It's not your feed");  
+    }
     } else {
       window.alert("Login is required.");
     }
   };
 
   const editFeedClickEventListener = (item, nickname) => {
-    const userNick = localStorage.getItem("user_uid");
+    const userNick = localStorage.getItem("user_nick");
     if (loginState) {
       if (nickname === userNick) {
         navigate(`/edit`, { state: { item } });
@@ -136,7 +141,7 @@ const Feed = () => {
                     <span
                       className="material-icons card_delete"
                       onClick={() => {
-                        deleteFeedClickEventListener(item.id);
+                        deleteFeedClickEventListener(item.id, item.nickname);
                       }}
                     >
                       delete
