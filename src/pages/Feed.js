@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { StarDisplay } from "../elements/StarRating";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,7 +9,7 @@ import {
   getFeedListMore,
 } from "../redux/modules/feedSlice";
 import { useNavigate } from "react-router-dom";
-import { useInView } from "react-intersection-observer"
+import { useInView } from "react-intersection-observer";
 
 import UserIcon from "../asserts/images/default_user_icons.png";
 import SamplePhoto from "../asserts/images/food2.jpg";
@@ -21,32 +20,40 @@ import Carousels from "./Carousels";
 const Feed = () => {
   const FeedLists = useSelector((state) => state.Feed.list);
   const loginState = useSelector((state) => state.Feed.isLogin);
-  const totalListlen = useSelector( state => state.Feed.isLength );
+  const totalListlen = useSelector((state) => state.Feed.isLength);
   const [ref, inView] = useInView();
   const listLength = FeedLists.length;
-
-  console.log( listLength );
+  console.log( FeedLists );
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [ FirstLoad, setFirstLoad ] = React.useState( true );
 
   useEffect(() => {
-    if ( listLength === 1 ) {
+    // if (listLength === 1) {
+    if( 1 ){
       console.log("First load");
       dispatch(getFeedLists());
+      setFirstLoad( false );
     }
 
-    if(FeedLists && FeedLists.length > 0) {
-      console.log(FeedLists[0].img_url);
-
+    if ( FeedLists && FeedLists.length > 0) {
+      // console.log(FeedLists[0].img_url);
     }
   }, []);
 
-  useEffect(()=>{
-    if( listLength !== 1 && inView ){
+  // useEffect(()=>{
+  //   if( !FirstLoad ){
+  //     dispatch(getFeedLists());
+  //   }
+  // },[])
+
+  useEffect(() => {
+    // if (listLength !== 1 && inView) {
+    if( !FirstLoad && inView ){
       console.log("첫 로딩 이후 무한 스크롤");
-      dispatch( getFeedListMore( { listLength, totalListlen } ) );
+      dispatch(getFeedListMore({ listLength, totalListlen }));
     }
-  },[inView]);
+  }, [inView]);
 
   // Delete event handlers
   const deleteFeedClickEventListener = (id) => {
@@ -60,26 +67,24 @@ const Feed = () => {
   // onClick change heart
   const onclickIncreaseHeart = (id) => {
     const access_token = localStorage.getItem("access_token");
-    if( loginState ){
-      dispatch( increaseFeedHeart( { id, token: access_token } ) );
-    }else{
+    if (loginState) {
+      dispatch(increaseFeedHeart({ id, token: access_token }));
+    } else {
       window.alert("Login is required.");
     }
   };
 
   // console.log(FeedLists);
 
-  const onclickDecreaseHeart = ( id ) => {
+  const onclickDecreaseHeart = (id) => {
     const access_token = localStorage.getItem("access_token");
-    if( loginState ){
+    if (loginState) {
       dispatch(decreaseFeedHeart({ id, token: access_token }));
-    }else{
+    } else {
       window.alert("Login is required.");
     }
 
-  
-  console.log(FeedLists);
-
+    console.log(FeedLists);
   };
 
   return (
@@ -127,17 +132,22 @@ const Feed = () => {
                 </div>
               </div>
               <div className="card_body">
-
                 <div className="card-wrap2">
-                    <img
+                  <img
                     className="card_img_wrapper"
-                    src={item.img_url !== "null" ? item.img_url && item.img_url[0]: SamplePhoto}
+                    src={
+                      item.img_url !== "null"
+                        ? item.img_url && item.img_url[0]
+                        : SamplePhoto
+                    }
                     alt=""
                   />
-                  <div className="overlay"
-                   onClick={()=>{
-                    navigate(`/detail`, { state: {item} })
-                  }}>
+                  <div
+                    className="overlay"
+                    onClick={() => {
+                      navigate(`/detail`, { state: { item } });
+                    }}
+                  >
                     <div className="feedimgtxt">자세히보기</div>
                   </div>
                 </div>
@@ -152,19 +162,33 @@ const Feed = () => {
                     </div>
                   </div>
                   <div className="flexright">
-                    { item.like ? (<span
-                      className="material-icons card_body_heart_filled"
-                      onClick={() => {
-                        onclickDecreaseHeart(item.id);
-                      }}
-                    >favorite</span>): (<span
-                      className="material-icons card_body_heart"
-                      onClick={() => {
-                        onclickIncreaseHeart(item.id);
-                      }}
-                    >
-                      favorite_border
-                    </span>)}
+                    {item.like ? (
+                      <span
+                        className="material-icons card_body_heart_filled"
+                        onClick={() => {
+                          if (loginState) {
+                            onclickDecreaseHeart(item.id);
+                          } else {
+                            window.alert("Login is required.");
+                          }
+                        }}
+                      >
+                        favorite
+                      </span>
+                    ) : (
+                      <span
+                        className="material-icons card_body_heart"
+                        onClick={() => {
+                          if (loginState) {
+                            onclickIncreaseHeart(item.id);
+                          } else {
+                            window.alert("Login is required.");
+                          }
+                        }}
+                      >
+                        favorite_border
+                      </span>
+                    )}
                     {/* <span
                       className="material-icons card_body_heart"
                       onClick={() => {
@@ -182,7 +206,9 @@ const Feed = () => {
                     >
                       favorite
                     </span> */}
-                    <div className="isLike">좋아요 {item.likeCount ? item.likeCount : 0}개</div>
+                    <div className="isLike">
+                      좋아요 {item.likeCount ? item.likeCount : 0}개
+                    </div>
                   </div>
                 </div>
 
@@ -192,7 +218,7 @@ const Feed = () => {
                   <div className="card_body_content">
                     {item.address ? item.address : ""}
                   </div>
-                  
+
                   <div className="card_body_content ">
                     "{item.comment ? item.comment : ""}"
                   </div>
@@ -202,7 +228,7 @@ const Feed = () => {
           );
         })}
       </div>
-      <div ref={ref} className="Target-Element"/>
+      <div ref={ref} className="Target-Element" />
     </>
   );
 };

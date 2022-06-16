@@ -32,7 +32,7 @@ function App() {
   React.useEffect(() => {}, []);
   const navigate = useNavigate();
   const loginState = useSelector( state => state.Feed.isLogin);
-
+  console.log( loginState );
   // console.log( loginState );
   // const testUploadClick = async () => {
   //   const Token = localStorage.getItem("access_token");
@@ -77,6 +77,7 @@ function App() {
       <Up
         className="addbtn"
         onClick={() => {
+          // console.log( loginState );
           loginState ? ( navigate("/upload") ) : ( window.alert("Login is required.") )
         }}
       >
