@@ -19,11 +19,11 @@
 
 | 주특기 | 팀원 | 연락처 | Email |
 | --- | --- | --- | --- |
-| React | 권지은님 | 01053071417 | stacykwon86@gmail.com |
-| Spring | 김이안님 | 01024971512 | eank0108@gmail.com |
-| Spring | 박민수님 | 01096000151 | bbodd2013@naver.com |
-| Spring | 정현욱님 | 01094759512 | jeonghyeonuk98@gamil.com |
-| React | 한지용님 | 01057385019 | hjy583@naver.com |
+| React | 권지은님 |  stacykwon86@gmail.com |
+| Spring | 김이안님 |  eank0108@gmail.com |
+| Spring | 박민수님 |  bbodd2013@naver.com |
+| Spring | 정현욱님 |  jeonghyeonuk98@gamil.com |
+| React | 한지용님 |  hjy583@naver.com |
 
 # 🥭 BE, FB Git 주소
 
