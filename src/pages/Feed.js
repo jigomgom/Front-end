@@ -23,20 +23,20 @@ const Feed = () => {
   const totalListlen = useSelector((state) => state.Feed.isLength);
   const [ref, inView] = useInView();
   const listLength = FeedLists.length;
-  console.log( FeedLists );
+  console.log(FeedLists);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [ FirstLoad, setFirstLoad ] = React.useState( true );
+  const [FirstLoad, setFirstLoad] = React.useState(true);
 
   useEffect(() => {
     // if (listLength === 1) {
-    if( 1 ){
+    if (1) {
       console.log("First load");
       dispatch(getFeedLists());
-      setFirstLoad( false );
+      setFirstLoad(false);
     }
 
-    if ( FeedLists && FeedLists.length > 0) {
+    if (FeedLists && FeedLists.length > 0) {
       // console.log(FeedLists[0].img_url);
     }
   }, []);
@@ -49,7 +49,7 @@ const Feed = () => {
 
   useEffect(() => {
     // if (listLength !== 1 && inView) {
-    if( !FirstLoad && inView ){
+    if (!FirstLoad && inView) {
       console.log("첫 로딩 이후 무한 스크롤");
       dispatch(getFeedListMore({ listLength, totalListlen }));
     }
@@ -59,6 +59,19 @@ const Feed = () => {
   const deleteFeedClickEventListener = (id) => {
     if (loginState) {
       dispatch(deleteFeedLists(id));
+    } else {
+      window.alert("Login is required.");
+    }
+  };
+
+  const editFeedClickEventListener = (item, nickname) => {
+    const userNick = localStorage.getItem("user_uid");
+    if (loginState) {
+      if (nickname === userNick) {
+        navigate(`/edit`, { state: { item } });
+      }else{
+        window.alert("It's not your feed");  
+      }
     } else {
       window.alert("Login is required.");
     }
@@ -107,14 +120,14 @@ const Feed = () => {
                   <div>
                     <span
                       className="material-icons card_edit"
-                      // onClick={() => {
-                      //   navigate(`/edit`, { state: { item } });
-                      // }}
                       onClick={() => {
-                        loginState
-                          ? navigate(`/edit`, { state: { item } })
-                          : window.alert("Login is required.");
+                        editFeedClickEventListener(item, item.nickname);
                       }}
+                      // onClick={() => {
+                      //   loginState
+                      //     ? navigate(`/edit`, { state: { item } })
+                      //     : window.alert("Login is required.");
+                      // }}
                     >
                       edit
                     </span>
