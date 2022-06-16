@@ -7,14 +7,12 @@ const SERVER_URL = "http://13.124.223.73/api";
 // DB에서 모든 Feed 가져오기
 export const getFeedLists = createAsyncThunk("GET/getFeedLists", async () => {
   const userUID = localStorage.getItem("user_uid");
-  console.log( userUID );
-  if (userUID !== null ) {
-    console.log("!!")
+
+  if (userUID !== null) {
     return await axios
       .get(`${SERVER_URL}/stores/${userUID}`, {})
       .then((response) => response.data);
   } else {
-    console.log("??")
     return await axios
       .get(`${SERVER_URL}/stores/0`, {})
       .then((response) => response.data);
@@ -30,7 +28,7 @@ export const getFeedListMore = createAsyncThunk(
     //listLength: 9, totalListlen: 26
     const pageNumber = parseInt(args.listLength / 9);
     if (args.listLength !== args.totalListlen) {
-      if (userUID !== null ) {
+      if (userUID !== null) {
         return await axios
           .get(`${SERVER_URL}/stores/${userUID}`, {
             params: {
@@ -38,7 +36,7 @@ export const getFeedListMore = createAsyncThunk(
             },
           })
           .then((response) => response.data);
-      }else{
+      } else {
         return await axios
           .get(`${SERVER_URL}/stores/0`, {
             params: {
@@ -163,17 +161,26 @@ export const increaseFeedHeart = createAsyncThunk(
 export const decreaseFeedHeart = createAsyncThunk(
   "DELETE/editFeed",
   async (Feed) => {
+    let result;
+    let LikeCnt = 0;
     console.log(Feed);
     await axios
       .delete(`${SERVER_URL}/unlike/${Feed.id}`, {
         headers: { Authorization: `${Feed.token}` },
       })
       .then((res) => {
-        console.log(res.data);
+        if (res.data.response) {
+          console.log(res.data);
+          result = true;
+          LikeCnt = res.data.likeCount;
+        }
       })
       .catch((e) => console.log(e));
-
-    return Feed;
+    if (result) {
+      Feed["LikeCnt"] = LikeCnt;
+      console.log(Feed);
+      return Feed;
+    }
   }
 );
 
@@ -242,7 +249,8 @@ const FeedSlice = createSlice({
     //uploadFeed
     [uploadFeed.fulfilled]: (state, action) => {
       console.log("Upload fullfill");
-      state.list = [...current(state.list), action.payload];
+      console.log(action.payload);
+      state.list = [...state.list, action.payload];
     },
     [uploadFeed.rejected]: (state, action) => {
       console.log("Upload reject");

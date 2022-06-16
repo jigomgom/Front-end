@@ -3,7 +3,7 @@ import {useNavigate, useLocation} from "react-router-dom";
 import styled from 'styled-components';
 import UserIcon from "../asserts/images/default_user_icons.png";
 import SamplePhoto from "../asserts/images/food2.jpg";
-import { StarDisplay2 } from "./../elements/StarRating";
+import { StarDisplay2 } from "../elements/StarRating";
 
 //carousel
 import { Swiper, SwiperSlide } from "swiper/react";

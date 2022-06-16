@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { changeLoginState } from "../redux/modules/feedSlice";
+import { changeLoginState, getFeedLists } from "../redux/modules/feedSlice";
 import styled from "styled-components";
 
 const Navbar = () => {
@@ -33,6 +33,7 @@ const Navbar = () => {
     localStorage.removeItem("usericon");
     localStorage.removeItem("user_nick");
     localStorage.clear();
+    dispatch(getFeedLists());
   };
 
   const navigate = useNavigate();

@@ -26,7 +26,7 @@ const Upload = ()=> {
         const getData =(star) =>{
             setStar(star);
         };
-        console.log(star);
+        // console.log(star);
     // Post action
     const newpost = () => {
 
@@ -91,35 +91,15 @@ const Upload = ()=> {
         }
         
     }
-    console.log(selectedFile);
-    console.log(arr);
-    console.log(array);
-    
-
-    // const uploadFile = (files) =>{
-        
-    // }
-
-    // const uploadFile = async (files) => {
-    //     const ReactS3Client = new S3(config);
-    //     // the name of the file uploaded is used to upload it to S3
-    //     ReactS3Client
-    //     .uploadFile(file, file.name)
-    //     .then((data) => {
-    //         console.log(data.location);
-    //         setFile(data.location);
-    //         setSelectedFile(data.location);
-    //         setDisplay(false);
-    //     })
-    //     .catch(err => console.error(err))
-    // }
-
+    // console.log(selectedFile);
+    // console.log(arr);
+    // console.log(array);
     
     // VIEW
     return (
         <div className="containersm">
             <div className="form_wrapper2">                
-                <Button display = {display} onClick={onButtonClick}><span class="material-icons color-primary topmg20">add_a_photo</span></Button>
+                <Button display = {display} onClick={onButtonClick}><span className="material-icons color-primary topmg20">add_a_photo</span></Button>
                 <input className='file' type="file" multiple ref={inputFile} 
                 onChange={(e)=>{
                 handleFileInput(e)
