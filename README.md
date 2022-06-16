@@ -18,7 +18,7 @@
 ---
 
 | 주특기 | 팀원 |  Email |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 | React | 권지은님 |  stacykwon86@gmail.com |
 | Spring | 김이안님 |  eank0108@gmail.com |
 | Spring | 박민수님 |  bbodd2013@naver.com |
