@@ -71,13 +71,16 @@
 
 - **기능 8:  별점 표시 기능**
 
-# 🥭사용 기술
+<div><h1>🥭 기술 스택</h1></div>
+ <div align=center> 
+    <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+    <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+    <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+    <img src="https://img.shields.io/badge/github-CA4245?style=for-the-badge&logo=react-router-dom&logoColor=white">    
+</div>
 
----
-
-- Back-end
-    - 
 - Front-end
+
     - JavaScript
     - JSX
     - React
@@ -90,6 +93,7 @@
     - swiper
     - react-intersection-observer
     - axios
+    - sourceTree
 
 # 🍅 주간 스케쥴
 
