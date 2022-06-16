@@ -1,33 +1,53 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 
 import axios from "axios";
-import Feed from "../../pages/Feed";
 
 const SERVER_URL = "http://13.124.223.73/api";
 
 // DB에서 모든 Feed 가져오기
 export const getFeedLists = createAsyncThunk("GET/getFeedLists", async () => {
-  return await axios
-    .get(`${SERVER_URL}/stores`, {})
-    .then((response) => response.data.storeList);
-});
-// 로그인 시 Feed 가져오기
-export const getLoginFeedLists = createAsyncThunk(
-  "GET/getLoginFeedLists",
-  async (userid) => {
+  const userUID = localStorage.getItem("user_uid");
+  console.log( userUID );
+  if (userUID !== null ) {
+    console.log("!!")
     return await axios
-      .get(`${SERVER_URL}/stores/${userid}`, {})
-      .then((response) => response.data.storeList);
+      .get(`${SERVER_URL}/stores/${userUID}`, {})
+      .then((response) => response.data);
+  } else {
+    console.log("??")
+    return await axios
+      .get(`${SERVER_URL}/stores/0`, {})
+      .then((response) => response.data);
   }
-);
+});
 
 // 무한 스크롤을 위해 DB에 다시 요청하기
 export const getFeedListMore = createAsyncThunk(
   "GET/getFeedListsMore",
-  async () => {
-    return await axios
-      .get(`${SERVER_URL}/stores`, {})
-      .then((response) => response.data.storeList);
+  async (args) => {
+    console.log(args);
+    const userUID = localStorage.getItem("user_uid");
+    //listLength: 9, totalListlen: 26
+    const pageNumber = parseInt(args.listLength / 9);
+    if (args.listLength !== args.totalListlen) {
+      if (userUID !== null ) {
+        return await axios
+          .get(`${SERVER_URL}/stores/${userUID}`, {
+            params: {
+              page: String(pageNumber),
+            },
+          })
+          .then((response) => response.data);
+      }else{
+        return await axios
+          .get(`${SERVER_URL}/stores/0`, {
+            params: {
+              page: String(pageNumber),
+            },
+          })
+          .then((response) => response.data);
+      }
+    }
   }
 );
 
@@ -125,7 +145,7 @@ export const increaseFeedHeart = createAsyncThunk(
       )
       .then((res) => {
         if (res.data.response) {
-          console.log( res.data );
+          console.log(res.data);
           result = true;
           LikeCnt = res.data.likeCount;
         }
@@ -133,7 +153,7 @@ export const increaseFeedHeart = createAsyncThunk(
       .catch((e) => console.log(e));
     if (result) {
       Feed["LikeCnt"] = LikeCnt;
-      console.log( Feed );
+      console.log(Feed);
       return Feed;
     }
   }
@@ -161,7 +181,7 @@ const FeedSlice = createSlice({
   name: "Feed",
   initialState: {
     isLogin: false,
-
+    isLength: 0,
     userinfo: {
       UserId: 0,
       nickname: "",
@@ -199,25 +219,25 @@ const FeedSlice = createSlice({
     //getFeedLists
     [getFeedLists.fulfilled]: (state, action) => {
       console.log("Get fullfill");
-      state.list = [...action.payload];
+      state.isLength = action.payload.total;
+      state.list = [...action.payload.storeList];
     },
     [getFeedLists.rejected]: (state, action) => {
       console.log("Get reject");
     },
-    // getLoginFeedLists 로그인하자마자 처음 로드하는 곳입니다.
-    [getLoginFeedLists.fulfilled]: (state, action) => {
-      console.log("Login get fulfill");
-      state.list = [...action.payload];
-    },
-    [getLoginFeedLists.rejected]: (state, action) => {
-      console.log("Login get reject");
-    },
 
     // getFeedListMore
     [getFeedListMore.fulfilled]: (state, action) => {
-      console.log("Get more list fulfill");
+      console.log("Get more list fulfill ", action.payload);
+      // state.isLastPage = action.payload.isLast;
+      // if( !action.payload.isLast ){
+      if (action.payload) {
+        state.list = [...state.list, ...action.payload.storeList];
+      }
+      // }
       // console.log(action.payload);
     },
+    [getFeedListMore.rejected]: (state, action) => {},
 
     //uploadFeed
     [uploadFeed.fulfilled]: (state, action) => {
@@ -260,11 +280,11 @@ const FeedSlice = createSlice({
     // Update Herat State
     [increaseFeedHeart.fulfilled]: (state, action) => {
       console.log("increase heart fulfill");
-      const lists = current( state.list ).map( ( item, index ) => {
+      const lists = current(state.list).map((item, index) => {
         // console.log( item );
-        if( item.id === action.payload.id ){
-          return { ...item, like: true, likeCount : action.payload.LikeCnt}
-        }else{
+        if (item.id === action.payload.id) {
+          return { ...item, like: true, likeCount: action.payload.LikeCnt };
+        } else {
           return item;
         }
       });
@@ -275,11 +295,11 @@ const FeedSlice = createSlice({
     },
     [decreaseFeedHeart.fulfilled]: (state, action) => {
       console.log("increase heart fulfill");
-      const lists = current( state.list ).map( ( item, index ) => {
-        console.log( item );
-        if( item.id === action.payload.id ){
-          return { ...item, like: false, likeCount : action.payload.LikeCnt}
-        }else{
+      const lists = current(state.list).map((item, index) => {
+        console.log(item);
+        if (item.id === action.payload.id) {
+          return { ...item, like: false, likeCount: action.payload.LikeCnt };
+        } else {
           return item;
         }
       });

@@ -81,7 +81,7 @@ const SignUp = () => {
   const IMG_PATH_ref = React.useRef(null);
   // Ref value end
 
-  // Email 검사
+  // Email 검사 
   const onChangeEmail = (event) => {
     const emailRegEx =
       /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;

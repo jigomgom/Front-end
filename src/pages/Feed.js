@@ -7,31 +7,30 @@ import {
   deleteFeedLists,
   increaseFeedHeart,
   decreaseFeedHeart,
-  getLoginFeedLists,
   getFeedListMore,
 } from "../redux/modules/feedSlice";
 import { useNavigate } from "react-router-dom";
+import { useInView } from "react-intersection-observer"
 
 import UserIcon from "../asserts/images/default_user_icons.png";
 import SamplePhoto from "../asserts/images/food2.jpg";
 // import SamplePhoto2 from "../asserts/images/soup.jpg";
 
 import Carousels from "./Carousels";
-import Detail from "./Detail";
 
 const Feed = () => {
   const FeedLists = useSelector((state) => state.Feed.list);
   const loginState = useSelector((state) => state.Feed.isLogin);
-  
-  const [isHeart, setIsHeart] = React.useState(false);
+  const totalListlen = useSelector( state => state.Feed.isLength );
+  const [ref, inView] = useInView();
+  const listLength = FeedLists.length;
 
-  const loginUserUID = localStorage.getItem("user_uid");
-
+  console.log( listLength );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (FeedLists.length === 1 && loginUserUID === null) {
+    if ( listLength === 1 ) {
       console.log("First load");
       dispatch(getFeedLists());
     }
@@ -41,6 +40,13 @@ const Feed = () => {
 
     }
   }, []);
+
+  useEffect(()=>{
+    if( listLength !== 1 && inView ){
+      console.log("첫 로딩 이후 무한 스크롤");
+      dispatch( getFeedListMore( { listLength, totalListlen } ) );
+    }
+  },[inView]);
 
   // Delete event handlers
   const deleteFeedClickEventListener = (id) => {
@@ -81,9 +87,8 @@ const Feed = () => {
       <Carousels />
       <div className="container">
         {FeedLists.map((item, index) => {
-          console.log( item.likeCount )
           return (
-            <div className="feed-wrap" key={item.id}>
+            <div className="feed-wrap" key={index}>
               <div className="card_head_wrapper">
                 <div className="headflex">
                   <img
@@ -197,328 +202,8 @@ const Feed = () => {
           );
         })}
       </div>
+      <div ref={ref} className="Target-Element"/>
     </>
-    // <div className="container">
-    //   <div className="feed-wrap">
-    //     <div className="card_head_wrapper">
-    //       <div className="headflex">
-    //         <img className="cardimg" src={UserIcon} alt="" />
-    //         <div className="card_nickname">Nick name</div>
-    //       </div>
-    //       <div className="headflex">
-    //         <div>
-    //           <span className="material-icons card_edit">edit</span>
-    //         </div>
-    //         <div>
-    //           <span className="material-icons card_delete">delete</span>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <div className="card_body">
-    //       <img className="card_img_wrapper" src={SamplePhoto} alt="" />
-    //       <div className="card_body_title">
-    //         <div className="flexleft">
-    //           <div className="card_body_place">좋은 소식</div>
-    //           <div className="card_body_header_class">일식</div>
-    //         </div>
-    //         <div className="flexright">
-    //           <span className="material-icons card_body_heart">
-    //               favorite_border
-    //           </span>
-    //         </div>
-    //       </div>
-
-    //       <StarDisplay rate={80}/>
-
-    //       <div className="card_body_wrap">
-    //         <div className="card_body_content">
-    //           수원시 영통구 플라자 3층 302호
-    //         </div>
-    //         <div className="card_body_content ">"연어, 성게 맛있습니다."
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-
-    //  구분선 위에 것 쓰기
-
-    //   <div className="feed-wrap">
-    //     <div className="card_head_wrapper">
-    //       <div className="headflex">
-    //         <img className="cardimg" src={UserIcon} alt="" />
-    //         <div className="card_nickname">Nick name</div>
-    //       </div>
-    //       <div className="headflex">
-    //         <div>
-    //           <span className="material-icons card_edit">edit</span>
-    //         </div>
-    //         <div>
-    //           <span className="material-icons card_delete">delete</span>
-    //         </div>
-    //       </div>
-    //     </div>
-
-    //     <div className="card_body">
-    //       <img className="card_img_wrapper" src={SamplePhoto2} alt="" />
-    //       <div className="card_body_header">
-    //         <div className="card_body_header_stars">
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //         </div>
-    //         <div>
-    //           <span className="material-icons card_body_heart">
-    //             favorite_border
-    //           </span>
-    //         </div>
-    //       </div>
-    //       <div className="card_body_wrap">
-    //         <div className="card_body_title">
-    //           <div className="card_body_place">좋은 소식</div>
-    //           <div className="card_body_header_class">일식</div>
-    //         </div>
-    //         <div className="card_bottom_wrap">
-    //           <div className="card_body_address">
-    //             장소 : 수원시 영통구 플라자 3층 302호
-    //           </div>
-    //           <div className="card_body_content">연어, 성게 맛있습니다.</div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <div className="feed-wrap">
-    //     <div className="card_head_wrapper">
-    //       <div className="headflex">
-    //         <img className="cardimg" src={UserIcon} alt="" />
-    //         <div className="card_nickname">Nick name</div>
-    //       </div>
-    //       <div className="headflex">
-    //         <div>
-    //           <span className="material-icons card_edit">edit</span>
-    //         </div>
-    //         <div>
-    //           <span className="material-icons card_delete">delete</span>
-    //         </div>
-    //       </div>
-    //     </div>
-
-    //     <div className="card_body">
-    //       <img className="card_img_wrapper" src={SamplePhoto} alt="" />
-    //       <div className="card_body_header">
-    //         <div className="card_body_header_stars">
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //         </div>
-    //         <div>
-    //           <span className="material-icons card_body_heart">
-    //             favorite_border
-    //           </span>
-    //         </div>
-    //       </div>
-    //       <div className="card_body_wrap">
-    //         <div className="card_body_title">
-    //           <div className="card_body_place">좋은 소식</div>
-    //           <div className="card_body_header_class">일식</div>
-    //         </div>
-    //         <div className="card_bottom_wrap">
-    //           <div className="card_body_address">
-    //             장소 : 수원시 영통구 플라자 3층 302호
-    //           </div>
-    //           <div className="card_body_content">연어, 성게 맛있습니다.</div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <div className="feed-wrap">
-    //     <div className="card_head_wrapper">
-    //       <div className="headflex">
-    //         <img className="cardimg" src={UserIcon} alt="" />
-    //         <div className="card_nickname">Nick name</div>
-    //       </div>
-    //       <div className="headflex">
-    //         <div>
-    //           <span className="material-icons card_edit">edit</span>
-    //         </div>
-    //         <div>
-    //           <span className="material-icons card_delete">delete</span>
-    //         </div>
-    //       </div>
-    //     </div>
-
-    //     <div className="card_body">
-    //       <img className="card_img_wrapper" src={SamplePhoto} alt="" />
-    //       <div className="card_body_header">
-    //         <div className="card_body_header_stars">
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //         </div>
-    //         <div>
-    //           <span className="material-icons card_body_heart">
-    //             favorite_border
-    //           </span>
-    //         </div>
-    //       </div>
-    //       <div className="card_body_wrap">
-    //         <div className="card_body_title">
-    //           <div className="card_body_place">좋은 소식</div>
-    //           <div className="card_body_header_class">일식</div>
-    //         </div>
-    //         <div className="card_bottom_wrap">
-    //           <div className="card_body_address">
-    //             장소 : 수원시 영통구 플라자 3층 302호
-    //           </div>
-    //           <div className="card_body_content">연어, 성게 맛있습니다.</div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <div className="feed-wrap">
-    //     <div className="card_head_wrapper">
-    //       <div className="headflex">
-    //         <img className="cardimg" src={UserIcon} alt="" />
-    //         <div className="card_nickname">Nick name</div>
-    //       </div>
-    //       <div className="headflex">
-    //         <div>
-    //           <span className="material-icons card_edit">edit</span>
-    //         </div>
-    //         <div>
-    //           <span className="material-icons card_delete">delete</span>
-    //         </div>
-    //       </div>
-    //     </div>
-
-    //     <div className="card_body">
-    //       <img className="card_img_wrapper" src={SamplePhoto} alt="" />
-    //       <div className="card_body_header">
-    //         <div className="card_body_header_stars">
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //         </div>
-    //         <div>
-    //           <span className="material-icons card_body_heart">
-    //             favorite_border
-    //           </span>
-    //         </div>
-    //       </div>
-    //       <div className="card_body_wrap">
-    //         <div className="card_body_title">
-    //           <div className="card_body_place">좋은 소식</div>
-    //           <div className="card_body_header_class">일식</div>
-    //         </div>
-    //         <div className="card_bottom_wrap">
-    //           <div className="card_body_address">
-    //             장소 : 수원시 영통구 플라자 3층 302호
-    //           </div>
-    //           <div className="card_body_content">연어, 성게 맛있습니다.</div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <div className="feed-wrap">
-    //     <div className="card_head_wrapper">
-    //       <div className="headflex">
-    //         <img className="cardimg" src={UserIcon} alt="" />
-    //         <div className="card_nickname">Nick name</div>
-    //       </div>
-    //       <div className="headflex">
-    //         <div>
-    //           <span className="material-icons card_edit">edit</span>
-    //         </div>
-    //         <div>
-    //           <span className="material-icons card_delete">delete</span>
-    //         </div>
-    //       </div>
-    //     </div>
-
-    //     <div className="card_body">
-    //       <img className="card_img_wrapper" src={SamplePhoto} alt="" />
-    //       <div className="card_body_header">
-    //         <div className="card_body_header_stars">
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //         </div>
-    //         <div>
-    //           <span className="material-icons card_body_heart">
-    //             favorite_border
-    //           </span>
-    //         </div>
-    //       </div>
-    //       <div className="card_body_wrap">
-    //         <div className="card_body_title">
-    //           <div className="card_body_place">좋은 소식</div>
-    //           <div className="card_body_header_class">일식</div>
-    //         </div>
-    //         <div className="card_bottom_wrap">
-    //           <div className="card_body_address">
-    //             장소 : 수원시 영통구 플라자 3층 302호
-    //           </div>
-    //           <div className="card_body_content">연어, 성게 맛있습니다.</div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <div className="feed-wrap">
-    //     <div className="card_head_wrapper">
-    //       <div className="headflex">
-    //         <img className="cardimg" src={UserIcon} alt="" />
-    //         <div className="card_nickname">Nick name</div>
-    //       </div>
-    //       <div className="headflex">
-    //         <div>
-    //           <span className="material-icons card_edit">edit</span>
-    //         </div>
-    //         <div>
-    //           <span className="material-icons card_delete">delete</span>
-    //         </div>
-    //       </div>
-    //     </div>
-
-    //     <div className="card_body">
-    //       <img className="card_img_wrapper" src={SamplePhoto} alt="" />
-    //       <div className="card_body_header">
-    //         <div className="card_body_header_stars">
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //           <span className="material-icons stars">star_outline</span>
-    //         </div>
-    //         <div>
-    //           <span className="material-icons card_body_heart">
-    //             favorite_border
-    //           </span>
-    //         </div>
-    //       </div>
-    //       <div className="card_body_wrap">
-    //         <div className="card_body_title">
-    //           <div className="card_body_place">좋은 소식</div>
-    //           <div className="card_body_header_class">일식</div>
-    //         </div>
-    //         <div className="card_bottom_wrap">
-    //           <div className="card_body_address">
-    //             장소 : 수원시 영통구 플라자 3층 302호
-    //           </div>
-    //           <div className="card_body_content">연어, 성게 맛있습니다.</div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 
