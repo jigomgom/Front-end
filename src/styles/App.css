@@ -597,7 +597,7 @@ textarea{
   background-color: var(--feed-background-color);
   margin-top: 10px;
   margin-bottom: 10px;
-  padding-bottom: 7px;
+  padding-bottom: 15px;
 }
 
 .card_head_wrapper {
