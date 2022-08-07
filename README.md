@@ -16,14 +16,35 @@
 # 🍉 밥먹언? 팀 소개
 
 ---
+<div align="center">
+<table>
+      <thead>
+        <tr>
+          <th>주특기</th><th>팀원</th><th>개인 메일 주소</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"></td><td>권지은님</td><td>stacykwon86@gmail.com</td>
+        </tr>
+        <tr>
+          <td><img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"></td><td>김이안님</td><td>eank0108@gmail.com</td>
+        </tr>
+        <tr>
+          <td><img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"></td><td>박민수님</td><td>bbodd2013@naver.com</td>
+        </tr>
+        <tr>
+          <td><img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"></td><td>정현욱님</td><td>junghunwook456@naver.com</td>
+        </tr>
+        <tr>
+          <td><img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"></td><td>한지용님</td><td>hjy583@naver.com</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
 
-| 주특기 | 팀원 |  Email |
-| --- | --- | --- |
-| React | 권지은님 |  stacykwon86@gmail.com |
-| Spring | 김이안님 |  eank0108@gmail.com |
-| Spring | 박민수님 |  bbodd2013@naver.com |
-| Spring | 정현욱님 |  jeonghyeonuk98@gamil.com |
-| React | 한지용님 |  hjy583@naver.com |
+# 🥝 밥먹언 Notion
+<p><a href="https://www.notion.so/d3c31d8b2e68437bb2573213e1d8b765">밥먹언 Notion</a>바로가기</p>
 
 # 🥭 BE, FB Git 주소
 
@@ -145,29 +166,22 @@
 - 포스트를 작성한 사용자만 수정 및 삭제 허용
 - 로그인 시 포스트를 작성할 수 있도록 허용
     
- ![Main view](https://user-images.githubusercontent.com/107230384/173980499-d0018dd6-7689-4842-a2a7-d62bb9207cc0.png)
-    
+ <p align="center"><img src="https://user-images.githubusercontent.com/107230384/173980499-d0018dd6-7689-4842-a2a7-d62bb9207cc0.png"></p>   
 
 - 로그아웃 Navbaer
-
-![Group 17](https://user-images.githubusercontent.com/107230384/173980788-728eff53-2d5a-4b50-96d8-759341c380c6.jpg)
+<p align="center"><img src="https://user-images.githubusercontent.com/107230384/173980788-728eff53-2d5a-4b50-96d8-759341c380c6.jpg"></p>
 
 ### 회원가입
-
-![Sing up page](https://user-images.githubusercontent.com/107230384/173980540-8e1e44b0-1348-4b52-b69d-76fcdba445c6.png)
+<p align="center"><img src="https://user-images.githubusercontent.com/107230384/173980540-8e1e44b0-1348-4b52-b69d-76fcdba445c6.png"></p>
 
 ### 로그인
-
-![Login page](https://user-images.githubusercontent.com/107230384/173980583-e6094194-642c-410d-953f-82e89c5b4845.png)
+<p align="center"><img src="https://user-images.githubusercontent.com/107230384/173980583-e6094194-642c-410d-953f-82e89c5b4845.png"></p>
 
 ### 맛집 게시글 작성하기
-
-![Upload page](https://user-images.githubusercontent.com/107230384/173980614-548bdce3-7c7e-412a-ae6e-95870be1e067.png)
-
+<p align="center"><img src="https://user-images.githubusercontent.com/107230384/173980614-548bdce3-7c7e-412a-ae6e-95870be1e067.png"></p>
 
 ### 맛집 게시글 수정하기
-![Edit page](https://user-images.githubusercontent.com/107230384/173980654-b1f602d3-7c08-4590-bbc1-1444498e6a38.png)
-
+<p align="center"><img src="https://user-images.githubusercontent.com/107230384/173980654-b1f602d3-7c08-4590-bbc1-1444498e6a38.png"></p>
 
 
 # 🍊 API
@@ -176,9 +190,7 @@
 <details>
 <summary>🐳 ERD</summary>
 <div markdown="1">
-
-![ERD](https://user-images.githubusercontent.com/95006095/173968568-ad73caa7-32f4-454c-996e-c0c984765bc1.png)
-
+<p align="center"><img src="https://user-images.githubusercontent.com/95006095/173968568-ad73caa7-32f4-454c-996e-c0c984765bc1.png"></p>
 </div>
 </details>  
 
